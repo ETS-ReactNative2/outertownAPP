@@ -6,6 +6,7 @@ import { View, Text } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, KoHo_400Regular } from '@expo-google-fonts/koho';
 import HomeScreen from './Components/HomeScreen';
+import { VenueInfo } from './Components/VenueInfo';
 
 const Stack = createStackNavigator();
 
@@ -13,10 +14,12 @@ const Stack = createStackNavigator();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [venueInfo, setVenueInfo] = useState(null);
+  const processVenueInfo = async(venueInfo) => {
+    setVenueInfo(venueInfo)
+  }
   let [fontsLoaded] = useFonts({
     KoHo_400Regular,
   });
-  // const [fontsLoaded, setFontsLoaded] = useState(false);
   useEffect(() => {
     async function prepare() {
       try {
@@ -25,7 +28,7 @@ export default function App() {
         // Get venue info from API
         const res = await fetch('https://outertownfest.com/api/venues.php')
         const data = await res.json();
-        setVenueInfo(data);
+        await processVenueInfo(data);
       }
       catch (e) {
         console.warn(e);
@@ -52,11 +55,11 @@ export default function App() {
             appIsReady: appIsReady
           }}
         />
+        <Stack.Screen
+          name="Venue Info"
+          component={VenueInfo}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-    // <HomeScreen
-    //   appIsReady={appIsReady}
-    //   venueInfo={venueInfo}
-    // />
   );
 }
