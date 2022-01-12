@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, Image } from 'react-native';
 import Performance from './Performance';
 
 export function VenueInfo({ route, navigation }) {
-    console.log(route.params)
+    // console.log(route.params)
     const venue = route.params.venue;
     const performances = route.params.performancesInfo.sort((a, b) => a.Start > b.start);
     return (
