@@ -1,32 +1,37 @@
-import React, { useCallback } from 'react';
+// import dependencies
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text } from 'react-native';
-import * as SplashScreen from 'expo-splash-screen';
+import { Text, Image } from 'react-native';
 import VenueList from './VenueList.js'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import components
+import Loading from './Loading.js';
 
 export default function HomeScreen({route, navigation}) {
-    // console.log(route.params.performancesInfo.filter(performance => {
-    //     console.log(performance.Stage);
-    //     return performance.Stage == "Glitch";
-    // }))
-    // console.log(route.params.performancesInfo.filter(performance => {
-    //     performance.Stage === "Ill Repute";
-    // }))
-    const appIsReady = route.params.appIsReady;
-    const onLayoutRootView = useCallback( async () => {
-        if (appIsReady) {
-          await SplashScreen.hideAsync();
-        }
-      }, [appIsReady]);
-      return (
-          <SafeAreaView
+    const [venuesInfo, setVenuesInfo] = useState(false);
+
+    useEffect(() => {
+        (async() => {
+            // get venue data from local storage
+            const localVenuesData = await AsyncStorage.getItem('@venuesData');
+            setVenuesInfo(JSON.parse(localVenuesData));
+        })();
+    }, []);
+
+    // if we haven't got all the data yet, show the loading screen
+    if (!venuesInfo) {
+        return (
+            <Loading />
+        )
+    }
+    return (
+        <SafeAreaView
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-            onLayout={onLayoutRootView}
         >
-            <Text style={{ fontFamily: 'KoHo_400Regular', fontSize: 40 }}>
+            <Text style={{ fontFamily: 'Bellefair', fontSize: 40 }}>
                 Outer Town 2021
             </Text>
-            {route.params.venuesInfo.map((venue, id)=>{
+            {venuesInfo.map((venue, id)=>{
                 return (
                     <VenueList
                         key={id}
@@ -34,9 +39,6 @@ export default function HomeScreen({route, navigation}) {
                         image={venue.VenueImg}
                         action={() => navigation.navigate('Venue Info', {
                             venue: venue,
-                            bandsInfo: route.params.bandsInfo,
-                            performancesInfo: route.params.performancesInfo
-                            .filter(performance => performance.Venue === venue.Name)
                         })}
                     />
                 )

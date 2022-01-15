@@ -10,9 +10,16 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/bellefair": "^0.2.2",
     "@expo-google-fonts/dev": "^0.2.0",
+    "@expo-google-fonts/inria-serif": "^0.2.2",
+    "@expo-google-fonts/inter": "^0.2.2",
+    "@expo-google-fonts/jacques-francois-shadow": "^0.2.2",
+    "@expo-google-fonts/kaisei-tokumin": "^0.2.2",
     "@expo-google-fonts/koho": "^0.2.0",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/netinfo": "^7.1.7",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
     "expo": "~43.0.0",
@@ -26,8 +33,7 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
-    "react-native-web": "0.17.1",
-    "@react-native-async-storage/async-storage": "~1.15.0"
+    "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

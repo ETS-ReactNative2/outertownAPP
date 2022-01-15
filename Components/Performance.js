@@ -15,7 +15,7 @@ export default function Performance(props) {
             >
                 <Text>{props.performance.Band}</Text>
             </TouchableOpacity>
-            <Text>{props.performance.Start}</Text>
+            <Text>{String(props.performance.Start.getHours()).padStart(2, '0')}:{String(props.performance.Start.getMinutes()).padStart(2, '0')}</Text>
         </View>
     )
 }
