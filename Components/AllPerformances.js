@@ -1,34 +1,69 @@
-import React, { useState } from 'react';
-import { View, Text, Modal, Pressable } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-
-import handleSwipe from '../Modules/handleSwipe';
-
+// load dependencies
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Button, FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Modal from 'react-native-modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// load components
+import Loading from './Loading';
+import Performance from './Performance';
+// load modules
+import parsePerformances from '../Modules/parsePerformances';
 
 export default function AllPerformances(props) {
+    const [showModal, setShowModal] = useState(props.showAllPerformances);
+    const [performances, setPerformances] = useState(false);
+
+    const navigation = useNavigation();
+
+    function modalSwiper({nativeEvent}) {
+        toggleModal()
+    }
+
+    const toggleModal = () => {
+        props.setShowAllPerformances(!showModal)
+    };
+
+    useEffect(() => {
+        (async() => {
+            // get venue data from local storage
+            const localPerformancesData = await AsyncStorage.getItem('@performancesData');
+            setPerformances(parsePerformances(localPerformancesData));
+        })();
+    }, []);
+
+    useEffect(() => {
+        setShowModal(props.showAllPerformances);
+    }, [props.showAllPerformances]);
+    
+    // build schedule
+    let performanceSchedule;
+    if (!performances)
+        performanceSchedule = <Loading />;
+    else {
+        performanceSchedule =
+        <FlatList
+            data={performances}
+            renderItem={({ item }) => Performance(item, navigation, toggleModal)}
+            keyExtractor={item=>item.Id}
+        />
+    }
     return (
-        <PanGestureHandler
-			onHandlerStateChange={(e)=>handleSwipe(e, props.setShowAllPerformances)}        
+        <Modal
+            isVisible={showModal}
+            swipeDirection='down'
+            onSwipeComplete={modalSwiper}
+            swipeThreshold={155}
+            backdropColor='#eeeeee'
+            backdropOpacity={0.8}
         >
-            <Modal
-                animationType="slide"
-                visible={props.showAllPerformances}
-                transparent={false}
-                onRequestClose={()=>props.setShowAllPerformances(false)}
+            <SafeAreaView
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
             >
-                <View
-                    style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-                >
-                    <Text>
-                        All Performances
-                    </Text>
-                    <Pressable
-                        onPress = {() => props.setShowAllPerformances(false)}
-                    >
-                        <Text>Hide Modal</Text>
-                    </Pressable>
-                </View>
-            </Modal>
-        </PanGestureHandler>
-    )
-}
+                {performanceSchedule}
+                <Button title="Hide modal" onPress={toggleModal} />
+            </SafeAreaView>
+        </Modal>
+    );
+  }

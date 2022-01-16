@@ -2,20 +2,26 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Performance(props) {
+export default function Performance(performance, navigation, toggleModal=false) {
     let stageTitle = null;
-    if (props.performance.Stage !== props.performance.Venue) {
-        stageTitle = <Text>{props.performance.Stage}</Text>
+    if (performance.Stage !== performance.Venue) {
+        stageTitle = <Text>{performance.Stage}</Text>
     }
     return (
         <View>
             {stageTitle}
             <TouchableOpacity
-                onPress={props.action}
+                onPress={() => {
+                    if (toggleModal)
+                        toggleModal();
+                    navigation.navigate('Band Info', {
+                            band: performance.Band
+                        })}
+                }
             >
-                <Text>{props.performance.Band}</Text>
+                <Text>{performance.Band}</Text>
             </TouchableOpacity>
-            <Text>{String(props.performance.Start.getHours()).padStart(2, '0')}:{String(props.performance.Start.getMinutes()).padStart(2, '0')}</Text>
+            <Text>{String(performance.Start.getHours()).padStart(2, '0')}:{String(performance.Start.getMinutes()).padStart(2, '0')}</Text>
         </View>
     )
 }

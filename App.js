@@ -34,7 +34,7 @@ export default function App() {
     InriaSerif,
     KaiseiTokumin
   });
-  useEffect(async() => {
+  useEffect((async() => {
     const prepareResult = await prepare();
     if (prepareResult === null) {
       setAppIsReady(true);
@@ -43,7 +43,7 @@ export default function App() {
       setAppIsReady(true);
       await SplashScreen.hideAsync();
     }
-  }, []);
+  })(), []);
 
   if (!appIsReady || !fontsLoaded) {
     return null;

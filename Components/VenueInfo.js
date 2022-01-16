@@ -1,11 +1,13 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Image } from 'react-native';
+import { Text, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
+import ScreenWrapper from './ScreenWrapper';
 import Performance from './Performance';
 import Loading from './Loading';
+// import modules
+import parsePerformances from '../Modules/parsePerformances';
 
 export default function VenueInfo({ route, navigation }) {
     const [venueInfo, setVenueInfo] = useState(false);
@@ -21,14 +23,9 @@ export default function VenueInfo({ route, navigation }) {
                 .filter(venue=> venue.Name === route.params.venue.Name);
             setVenueInfo(venueData[0]);
             // get performances for just this venue, and sort in ascending chronological order
-            let performanceData = JSON.parse(values[1])
-                .filter(performance=>performance.Venue===route.params.venue.Name);
-            performanceData.map(performance=>performance.Start = new Date(performance.Start));
-            performanceData.map(performance=>performance.End = new Date(performance.End));
-            performanceData = performanceData.sort((a, b)=>Date.parse(a.Start) - Date.parse(b.Start));
-            setPerformances(performanceData);
+            setPerformances(parsePerformances(values[1], route.params.venue.Name));
         })();
-    }, []);
+    }, [route.params.venue.Name]);
 
     if (!venueInfo || !performances) {
         return (
@@ -37,7 +34,7 @@ export default function VenueInfo({ route, navigation }) {
     }
 
     return (
-        <SafeAreaView>
+        <ScreenWrapper>
             <Text>
                 {venueInfo.Name}
             </Text>
@@ -47,17 +44,11 @@ export default function VenueInfo({ route, navigation }) {
             <Text>
                 {venueInfo.Info}
             </Text>
-            {performances.map((performance, id) => {
-                return (
-                    <Performance
-                        performance={performance}
-                        action={() => navigation.navigate('Band Info', {
-                            band: performance.Band
-                        })}
-                        key={id}
-                    />
-                )
-            })}
-        </SafeAreaView>
+            <FlatList
+                data={performances}
+                renderItem={({ item }) => Performance(item, navigation)}
+                keyExtractor={item=>item.Id}
+            />
+        </ScreenWrapper>
     )
 }

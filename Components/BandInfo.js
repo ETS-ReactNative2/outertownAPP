@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import components
+import ScreenWrapper from './ScreenWrapper';
 import Loading from './Loading';
 
 export default function BandInfo({route, navigation}) {
@@ -17,7 +18,7 @@ export default function BandInfo({route, navigation}) {
                 .filter(band=> band.Name === route.params.band);
             setBandInfo(bandData[0]);
         })();
-    }, []);
+    }, [route.params.band]);
 
     if (!bandInfo) {
         return (
@@ -26,9 +27,11 @@ export default function BandInfo({route, navigation}) {
     }
 
     return (
-        <View>
-            <Text>{bandInfo.Name}</Text>
-            <Text>from {bandInfo.Location}</Text>
-        </View>
+        <ScreenWrapper>
+            <View>
+                <Text>{bandInfo.Name}</Text>
+                <Text>from {bandInfo.Location}</Text>
+            </View>
+        </ScreenWrapper>
     )
 }
