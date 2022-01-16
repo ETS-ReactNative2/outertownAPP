@@ -52,11 +52,15 @@ export default function AllPerformances(props) {
     return (
         <Modal
             isVisible={showModal}
-            swipeDirection='down'
+            animationIn={'slideInDown'}
+            animationOut={'slideOutUp'}
+            swipeDirection='up'
             onSwipeComplete={modalSwiper}
             swipeThreshold={155}
             backdropColor='#eeeeee'
-            backdropOpacity={0.8}
+            backdropOpacity={0.9}
+            onBackButtonPress={toggleModal}
+            style={{backgroundColor: '#996622'}}
         >
             <SafeAreaView
                 style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}

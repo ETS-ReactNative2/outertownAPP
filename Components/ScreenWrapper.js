@@ -7,6 +7,8 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import AllPerformances from './AllPerformances.js';
 // import modules
 import handleSwipe from '../Modules/handleSwipe.js';
+// import styles
+import { baseStyles } from '../Styles/baseStyles.js';
 
 export default function ScreenWrapper(props) {
 	const [showAllPerformances, setShowAllPerformances] = useState(false);
@@ -15,21 +17,18 @@ export default function ScreenWrapper(props) {
 			onHandlerStateChange={(e)=>handleSwipe(e, setShowAllPerformances)}
 		>
             <SafeAreaView
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+                style={baseStyles.container}
             >
+                <View style={baseStyles.footer}>
+                    <Text style={baseStyles.footerText}>
+                        Swipe down to to see gig schedule
+                    </Text>
+                </View>
 				<AllPerformances
 					showAllPerformances={showAllPerformances}
 					setShowAllPerformances={setShowAllPerformances}
 				/>
                 {props.children}
-                <View style={{flex:1, width:'100%', backgroundColor:'#5509e3', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#e9f8ff'}}>
-                        Swipe up to to see gig schedule
-                    </Text>
-                    <Text style={{color: '#e9f8ff'}}>
-                        ^^^
-                    </Text>
-                </View>
             </SafeAreaView>
         </PanGestureHandler>
     )

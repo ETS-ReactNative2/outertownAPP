@@ -6,6 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScreenWrapper from './ScreenWrapper.js';
 import Loading from './Loading.js';
 import VenueList from './VenueList.js'
+// import styles
+import { baseStyles } from '../Styles/baseStyles.js';
 
 export default function HomeScreen({route, navigation}) {
     const [venuesInfo, setVenuesInfo] = useState(false);
@@ -25,11 +27,11 @@ export default function HomeScreen({route, navigation}) {
     }
     return (
         <ScreenWrapper>
-        <View style={{flex: 15, width: '100%', justifyContent: 'flex-start', alignItems:'center'}}>
-            <Text style={{ fontFamily: 'KoHoBold', fontSize: 40 }}>
+        <View style={baseStyles.upperContent}>
+            <Text style={baseStyles.stdTitle}>
                 Outer Town 2021
             </Text>
-            <View style={{width:'100%'}}>
+            <View style={baseStyles.contentContainer}>
             <FlatList
                 data={venuesInfo}
                 renderItem={({ item })=>VenueList(item, navigation)}

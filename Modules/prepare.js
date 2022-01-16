@@ -29,7 +29,9 @@ export default async function prepare() {
       }
       // if we have a connection, get current version of API data
       if (state.isConnected) {
-        const apiVersion = await fetch('https://outertownfest.com/api/version.php')
+        const apiVersion = await fetch('https://outertownfest.com/api/version.php', {headers: {
+          'Content-type': 'application/json',}
+        })
         .then(res=>res.text());
         // if we have the same version locally as on the API or if connection is expensive use local data
         if ((localVersion === apiVersion) || state.details.isConnectionExpensive)
@@ -51,15 +53,17 @@ export default async function prepare() {
       let localPerformancesData = localData[2];
       // if we do then use it
       if (localVenuesData !== null)
-        venuesData = JSON.parse(localVenuesData);
+      venuesData = JSON.parse(localVenuesData);
       if (localBandsData !== null)
-        bandsData = JSON.parse(localBandsData);
+      bandsData = JSON.parse(localBandsData);
       if (localPerformancesData !== null)
-        performancesData = JSON.parse(localPerformancesData);
+      performancesData = JSON.parse(localPerformancesData);
       // Get festival info from API if no local data
       if (venuesData === null || updateData) {
         console.log('Retrieving data from API...');
-        venuesData = fetch('https://outertownfest.com/api/venues.php')
+        venuesData = fetch('https://outertownfest.com/api/venues.php', {headers: {
+          'Content-type': 'application/json',}
+        })
         .then((res)=>res.json())
 				.then((data)=>{
 					AsyncStorage.setItem('@venuesData', JSON.stringify(data));
@@ -67,7 +71,9 @@ export default async function prepare() {
 				})
       }
       if (bandsData === null || updateData) {
-				bandsData = fetch('https://outertownfest.com/api/bands.php')
+				bandsData = fetch('https://outertownfest.com/api/bands.php', {headers: {
+          'Content-type': 'application/json',}
+        })
         .then((res)=>res.json())
 				.then((data)=>{
 					AsyncStorage.setItem('@bandsData', JSON.stringify(data));
@@ -75,7 +81,9 @@ export default async function prepare() {
 				})
       }
       if (performancesData === null || updateData) {
-				performancesData    = fetch('https://outertownfest.com/api/performances.php')
+				performancesData    = fetch('https://outertownfest.com/api/performances.php', {headers: {
+          'Content-type': 'application/json',}
+        })
         .then((res)=>res.json())
 				.then((data)=>{
           data.map(performance=>performance.Start = new Date(performance.Start.replace(' ', 'T')));
