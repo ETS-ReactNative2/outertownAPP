@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 // import styles
-import { venueStyles } from '../Styles/venueStyles';
+import { venueStyles } from '../../Styles/venueStyles';
 
 export default function VenueTitle(props) {
     const venueLogoPath = 'https://outertownfest.com/assets/images/venueLogos/';

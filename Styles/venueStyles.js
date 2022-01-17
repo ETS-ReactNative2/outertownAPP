@@ -10,7 +10,8 @@ export const venueStyles = StyleSheet.create({
   },
   venueLogo: {
     flex: 1,
-    padding: '1%'
+    minHeight: 50,
+    padding: '1%',
   },
   venueLogoImage: {
     flex: 1,
@@ -21,4 +22,21 @@ export const venueStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  venueFullImage: {
+    width: '80%',
+    height: 200,
+  },
+  venueDiv: {
+    width:'100%',
+    padding: '2%',
+    alignItems: 'center',
+  },
+  venueAddressText: {
+    fontFamily: 'KoHo',
+    fontSize: 8
+  },
+  venueInfoText: {
+    fontFamily: 'KoHo',
+    fontSize: 12,
+  }
 })

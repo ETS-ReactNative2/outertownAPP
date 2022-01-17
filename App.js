@@ -14,8 +14,8 @@ import { KaiseiTokumin_800ExtraBold as KaiseiTokumin } from '@expo-google-fonts/
 // import components
 import HomeScreen from './Components/HomeScreen';
 import BandInfo from './Components/BandInfo';
-import VenueInfo from './Components/VenueInfo';
-import NoData from './Components/NoData';
+import VenueInfo from './Components/Venue/VenueInfo';
+import NoData from './Components/Common/NoData';
 // import functional modules
 import prepare from './Modules/prepare';
 

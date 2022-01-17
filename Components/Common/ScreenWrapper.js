@@ -4,11 +4,11 @@ import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 // import components
-import AllPerformances from './AllPerformances.js';
+import AllPerformances from '../Performance/AllPerformances';
 // import modules
-import handleSwipe from '../Modules/handleSwipe.js';
+import handleSwipe from '../../Modules/handleSwipe.js';
 // import styles
-import { baseStyles } from '../Styles/baseStyles.js';
+import { baseStyles } from '../../Styles/baseStyles.js';
 
 export default function ScreenWrapper(props) {
 	const [showAllPerformances, setShowAllPerformances] = useState(false);
@@ -19,9 +19,9 @@ export default function ScreenWrapper(props) {
             <SafeAreaView
                 style={baseStyles.container}
             >
-                <View style={baseStyles.footer}>
-                    <Text style={baseStyles.footerText}>
-                        Swipe down to to see gig schedule
+                <View style={baseStyles.header}>
+                    <Text style={baseStyles.headerText}>
+                        Swipe left to to see full gig schedule &lt;&lt;&lt;
                     </Text>
                 </View>
 				<AllPerformances
