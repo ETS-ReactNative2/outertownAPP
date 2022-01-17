@@ -21,7 +21,7 @@ export default function VenueTitle(props) {
     }
     if (venue.TitleFont !== '') {
         const fontSize = parseInt(venue.TitleFontSize);
-        const appFont = venue.TitleFont.replaceAll(' ', '');
+        const appFont = venue.TitleFont.replace(/ /g, '');
         textTitle = (<View
             style={venueStyles.venueTitle}
         >
