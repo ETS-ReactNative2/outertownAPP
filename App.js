@@ -61,14 +61,17 @@ export default function App() {
           name="Home Screen"
           options={{headerShown: false}}
           component={HomeScreen}
+          cardStyle={{height:'100%'}}
         />
         <Stack.Screen
           name="Venue Info"
           component={VenueInfo}
+          cardStyle={{height:'100%'}}
         />
         <Stack.Screen
           name="Band Info"
           component={BandInfo}
+          cardStyle={{height:'100%'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

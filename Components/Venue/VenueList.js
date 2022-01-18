@@ -6,6 +6,7 @@ import VenueTitle from './VenueTitle';
 import { baseStyles } from '../../Styles/baseStyles';
 // import modules
 import { venueImagePath } from '../../Modules/paths';
+import { venueStyles } from '../../Styles/venueStyles';
 
 export default function VenueList(props) {
     const venueInfo = props.venueInfo;
@@ -18,14 +19,14 @@ export default function VenueList(props) {
             }
         >
         <View
-            style={{width: '100%', justifyContent: 'flex-start', alignItems: 'center'}}
+            style={venueStyles.venueListContainer}
         >
             <VenueTitle
                 venue={venueInfo}
             />
 
             <Image
-                style={{width: '80%', height: 80}}
+                style={venueStyles.venueListImage}
                 source={{uri: venueImagePath+venueInfo.VenueImg}}
             />
         </View>

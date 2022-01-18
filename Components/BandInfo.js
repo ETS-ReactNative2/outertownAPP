@@ -9,6 +9,8 @@ import { baseStyles } from '../Styles/baseStyles';
 import LinkWrapper from './Common/LinkWrapper';
 // import modules
 import { bandImagePath, bandLogoPath, twitterPath } from '../Modules/paths';
+// import styles
+import { bandStyles } from '../Styles/bandStyles';
 
 export default function BandInfo({route, navigation}) {
     const [bandInfo, setBandInfo] = useState(false);
@@ -33,20 +35,19 @@ export default function BandInfo({route, navigation}) {
     // build screen parts where information available
     if (bandInfo.BandImg) {
         bandImage = <Image
-        style={{width: '100%', height: 250}}
+        style={bandStyles.image}
         source={{uri: bandImagePath+bandInfo.BandImg}}
         resizeMode='contain'
     />
     }
     if (bandInfo.bandLogo) {
-        console.log('Here')
         bandLogo = <Image
-        style={{width: 100, height: 30}}
-        source={{uri: bandLogoPath+bandInfo.BandLogo}}
+        style={bandStyles.bandLogo}
+        source={{uri: bandLogoPath+bandInfo.logo}}
         resizeMode='contain'
     />
     } else {
-        bandLogo = <View style={{flex: 4, justifyContent: 'center', alignItems: 'flex-start'}}>
+        bandLogo = <View style={bandStyles.logoContainer}>
             <Text style={baseStyles.stdTitle}>
                 {bandInfo.Name}
             </Text>
@@ -80,14 +81,14 @@ export default function BandInfo({route, navigation}) {
     }
 
     if (bandInfo.Location) {
-        bandLocation = <View style={{flex:1, justifyContent: 'center', alignItems: 'flex-end'}}>
+        bandLocation = <View style={bandStyles.location}>
             <Text style={baseStyles.stdText}>
                 ({bandInfo.Location})
             </Text>
         </View>
     }
 
-    bandBio = <View style={{margin: '5%', padding: '2%', backgroundColor: 'white'}}>
+    bandBio = <View style={bandStyles.bio}>
         <Text style={baseStyles.stdText}>
             {bandInfo.Bio ? bandInfo.Bio : '[no bio yet]'}
         </Text>
@@ -105,7 +106,7 @@ export default function BandInfo({route, navigation}) {
                     {bandImage}
                 </View>
                 {bandBio}
-                <View name='socials' style={{padding: '2%', justifyContent: 'center', alignItems: 'center'}}>
+                <View name='socials' style={bandStyles.socials}>
                     {bandTwitter}
                     {bandSpotify}
                     {bandWeb}

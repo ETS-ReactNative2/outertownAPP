@@ -6,9 +6,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScreenWrapper from './Common/ScreenWrapper.js';
 import Loading from './Common/Loading.js';
 import LinkWrapper from './Common/LinkWrapper.js';
+import OTLogo from './Common/OTLogo.js';
 import VenueList from './Venue/VenueList.js'
 // import styles
 import { baseStyles } from '../Styles/baseStyles.js';
+import { venueStyles } from '../Styles/venueStyles'
 
 export default function HomeScreen({route, navigation}) {
     const [venuesInfo, setVenuesInfo] = useState(false);
@@ -28,6 +30,7 @@ export default function HomeScreen({route, navigation}) {
     if (today > festivalDayEnd) {
         return (
             <View>
+                <OTLogo />
                 <Text>
                     You missed it - try again next year!
                 </Text>
@@ -40,7 +43,15 @@ export default function HomeScreen({route, navigation}) {
         buyTickets = (
             <LinkWrapper
                 url={"https://www.gigantic.com/outer-town-festival-tickets/bristol-various-bristol-venues/2022-04-10-14-30"}
-                linkComponent={<View><Text>Buy Tickets for OuterTownFestival 2022</Text></View>}
+                linkComponent={
+                <View style={baseStyles.callToActionContainer}>
+                    <View style={baseStyles.callToActionButton}>
+                        <Text style={baseStyles.callToActionText}>
+                            Buy Tickets &gt;&gt;&gt;
+                        </Text>
+                    </View>
+                </View>
+                }
             />
         )
     }
@@ -54,21 +65,22 @@ export default function HomeScreen({route, navigation}) {
     
     return (
         <ScreenWrapper>
-            <ScrollView style={baseStyles.content}>
-                <View style={baseStyles.contentContainer}>
+            <View style={baseStyles.contentContainer}>
+                <OTLogo />
+                {buyTickets}
+                <View style={venueStyles.venueListContainer}>
                     <Text style={baseStyles.stdTitle}>
-                        Outer Town 2021
+                        Participating Venues
                     </Text>
-                    {buyTickets}
-                    {venuesInfo.map((venueInfo)=>
-                    <View key={venueInfo.Name}>
-                        <VenueList
-                        venueInfo={venueInfo}
-                        navigation={navigation}
-                        />
-                    </View>)}
                 </View>
-            </ScrollView>
+                {venuesInfo.map((venueInfo)=>
+                <View key={venueInfo.Name}>
+                    <VenueList
+                    venueInfo={venueInfo}
+                    navigation={navigation}
+                    />
+                </View>)}
+            </View>
         </ScreenWrapper>
     )
 }
