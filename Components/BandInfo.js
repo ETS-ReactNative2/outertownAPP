@@ -95,7 +95,9 @@ export default function BandInfo({route, navigation}) {
     </View>
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper
+            innerPage={true}
+        >
         <ScrollView style={baseStyles.content}>
             <View style={baseStyles.contentContainer}>
                 <View style={{flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: '3%',}}>

@@ -1,6 +1,6 @@
 // import dependencies
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 // import styles
 import { giglistStyles } from '../../Styles/giglistStyles';
@@ -17,19 +17,19 @@ export default function Performance(props) {
                 </Text>
             </View>
             <View style={giglistStyles.band}>
-            <TouchableOpacity
-                onPress={() => {
-                    if (toggleModal)
-                        toggleModal();
-                    navigation.navigate('Band Info', {
-                            band: performance.Band
-                        })}
-                }
-            >
+                <Pressable
+                    onPressOut={() => {
+                        if (toggleModal)
+                            toggleModal();
+                        navigation.navigate('Band Info', {
+                                band: performance.Band
+                            })}
+                    }
+                >
                     <Text style={giglistStyles.text}>
-                        {performance.Band}
+                        {performance.Band} &gt;&gt;
                     </Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
             <View style={giglistStyles.time}>
                 <Text style={giglistStyles.textSmall}>

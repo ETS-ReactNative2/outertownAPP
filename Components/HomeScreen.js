@@ -47,7 +47,7 @@ export default function HomeScreen({route, navigation}) {
                 <View style={baseStyles.callToActionContainer}>
                     <View style={baseStyles.callToActionButton}>
                         <Text style={baseStyles.callToActionText}>
-                            Buy Tickets &gt;&gt;&gt;
+                            Tickets &gt;&gt;&gt;
                         </Text>
                     </View>
                 </View>

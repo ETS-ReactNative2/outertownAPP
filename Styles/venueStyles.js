@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const screenWidth = Dimensions.get("window").width;
 
 export const venueStyles = StyleSheet.create({
   venueListContainer: {
@@ -22,8 +24,7 @@ export const venueStyles = StyleSheet.create({
   },
   venueLogo: {
     flex: 1,
-    minHeight: 50,
-    // padding: '1%',
+    minHeight: 50, // fixed minimum size for container
     top: '2%',
   },
   venueLogoImage: {
@@ -38,11 +39,11 @@ export const venueStyles = StyleSheet.create({
   },
   venueFullImage: {
     width: '80%',
-    height: 200,
+    height: 200, // fixed height for image display
   },
   venueListImage: {
     width: '80%',
-    height: 80
+    height: 80, // fixed height for image display
   },
   venueDiv: {
     width:'100%',
@@ -51,10 +52,10 @@ export const venueStyles = StyleSheet.create({
   },
   venueAddressText: {
     fontFamily: 'KoHo',
-    fontSize: 8
+    fontSize: screenWidth * 0.03
   },
   venueInfoText: {
     fontFamily: 'KoHo',
-    fontSize: 12,
+    fontSize: screenWidth * 0.04,
   }
 })

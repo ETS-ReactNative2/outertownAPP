@@ -1,13 +1,16 @@
 // load dependencies
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Button, ScrollView, View, Text } from 'react-native';
+import { Button, View, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // load components
 import Loading from '../Common/Loading';
 import Performance from './Performance';
+import AllPerformanceHeader from './AllPerformanceHeader';
+import HideAllPerformances from './HideAllPerformances';
 // load modules
 import parsePerformances from '../../Modules/parsePerformances';
 // import styles
@@ -62,18 +65,15 @@ export default function AllPerformances(props) {
             backdropColor='#eeeeee'
             backdropOpacity={0.9}
             onBackButtonPress={toggleModal}
+            style={{zIndex: 1}}
         >
             <ScrollView>
-                <SafeAreaView
-                    style={{flex: 25, alignItems: 'center', justifyContent: 'center'}}
-                >
-                        <Text style={baseStyles.stdTitle}>
-                            Full Gig Schedule
-                        </Text>
-                        {performanceSchedule}
-                        <View style={{flex:1, backgroundColor: '#f4f4ec'}}>
-                            <Button title="Hide Giglist" onPress={toggleModal} />
-                        </View>
+                <SafeAreaView>
+                    <AllPerformanceHeader />
+                    {performanceSchedule}
+                    <HideAllPerformances
+                        toggleModal={toggleModal}
+                    />
                 </SafeAreaView>
             </ScrollView>
         </Modal>

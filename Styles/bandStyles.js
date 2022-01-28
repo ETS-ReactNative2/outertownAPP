@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const bandStyles = StyleSheet.create({
     image: {
@@ -10,11 +10,12 @@ export const bandStyles = StyleSheet.create({
         height: 30,
     },
     logoContainer: {
-        flex: 4,justifyContent: 'center',
+        flex: 4,
+        justifyContent: 'center',
         alignItems: 'flex-start',
     },
     location: {
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-end'
     },

@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 export const baseStyles = StyleSheet.create({
     container: {
@@ -10,31 +13,33 @@ export const baseStyles = StyleSheet.create({
     },
     content: {
       width: '100%',
+      minHeight: screenHeight,
     },
     contentContainer: {
       width: '100%',
       justifyContent: 'flex-start',
-      paddingBottom: 40,
+      paddingBottom: 40, // extra padding so there's always some scroll space
     },
     stdTitle: {
       fontFamily: 'InterBold',
-      fontSize: 18,
+      fontSize: screenWidth * 0.04,
       textAlign: 'center',
     },
     stdText: {
       fontFamily: 'KoHo',
-      fontSize: 15,
+      fontSize: screenWidth * 0.035,
     },
     header: {
       width:'100%',
-      backgroundColor:'#5509e3',
+      backgroundColor:'#2b2b27',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      padding: '1.5%',
     },
     headerText: {
-      color: '#e9f8ff',
-      fontFamily: 'KoHo',
-      fontSize: 12
+      color: '#e4bf49',
+      fontFamily: 'InterBold',
+      fontSize: screenWidth * 0.037,
     },
     // call to action
     callToActionContainer: {
@@ -42,18 +47,20 @@ export const baseStyles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       padding: '1%',
-      top: -10, // covers up transition from logo to background road
+      top: '-15%', // covers up transition from logo to background road
     },
     callToActionButton: {
       flex: 1,
-      backgroundColor: 'steelblue',
-      padding: 10,
-      borderRadius: 10,
+      backgroundColor: '#e4bf49',
+      paddingTop: '3%',
+      paddingBottom: '3%',
+      paddingLeft: '5%',
+      paddingRight: '5%'
     },
     callToActionText: {
-      fontFamily: 'KoHoBold',
-      fontSize: 18,
-      color: '#a91010',
+      fontFamily: 'InterBold',
+      fontSize: screenWidth * 0.04,
+      color: '#353535',
     },
     // image background
     imageBackgroundStyle: {

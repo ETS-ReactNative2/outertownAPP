@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const screenWidth = Dimensions.get("window").width;
 
 export const giglistStyles = StyleSheet.create({
     gigRow: {
@@ -11,7 +13,7 @@ export const giglistStyles = StyleSheet.create({
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
         padding: '1%',
-        marginBottom: 5,
+        marginBottom: '2%',
         backgroundColor: 'white',
     },
     venue: {
@@ -33,14 +35,14 @@ export const giglistStyles = StyleSheet.create({
     },
     text: {
         fontFamily: 'KoHoBold',
-        fontSize: 18
+        fontSize: screenWidth * 0.037,
     },
     textSmall: {
         fontFamily: 'KoHo',
-        fontSize: 15,
+        fontSize: screenWidth * 0.035,
     },
     textVenue: {
         fontFamily: 'KoHo',
-        fontSize: 16,
+        fontSize: screenWidth * 0.035,
     },
 })

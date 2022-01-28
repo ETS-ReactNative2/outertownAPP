@@ -38,7 +38,9 @@ export default function VenueInfo({ route, navigation }) {
         }
     
     return (
-        <ScreenWrapper>
+        <ScreenWrapper
+            innerPage={true}
+        >
             <ScrollView style={baseStyles.content}>
                 <View style={baseStyles.contentContainer}>
                     <View style={venueStyles.venueDiv}>
@@ -54,11 +56,11 @@ export default function VenueInfo({ route, navigation }) {
                             resizeMode='contain'
                         />
                     </View>
-                    <View style={venueStyles.venueDiv}>
+                    {/* <View style={venueStyles.venueDiv}>
                         <Text style={venueStyles.venueInfoText}>
                             {venueInfo.Info}
                         </Text>
-                    </View>
+                    </View> */}
                     <View style={{flex: 2, padding: '3%'}}>
 
                     {performances.map((performance)=><Performance
