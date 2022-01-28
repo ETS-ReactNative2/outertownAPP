@@ -1,6 +1,12 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 export const bandStyles = StyleSheet.create({
+    bandHeader: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+        padding: '3%',
+    },
     image: {
         width: '100%',
         height: 250,
@@ -10,14 +16,16 @@ export const bandStyles = StyleSheet.create({
         height: 30,
     },
     logoContainer: {
-        flex: 4,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-start',
+        marginRight: '2.5%',
     },
     location: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        marginLeft: '2.5%',
     },
     bio: {
         margin: '5%',

@@ -47,6 +47,8 @@ export const baseStyles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       padding: '1%',
+    },
+    callToActionTickets: {
       top: '-15%', // covers up transition from logo to background road
     },
     callToActionButton: {

@@ -44,7 +44,7 @@ export default function HomeScreen({route, navigation}) {
             <LinkWrapper
                 url={"https://www.gigantic.com/outer-town-festival-tickets/bristol-various-bristol-venues/2022-04-10-14-30"}
                 linkComponent={
-                <View style={baseStyles.callToActionContainer}>
+                <View style={[baseStyles.callToActionContainer, baseStyles.callToActionTickets]}>
                     <View style={baseStyles.callToActionButton}>
                         <Text style={baseStyles.callToActionText}>
                             Tickets &gt;&gt;&gt;

@@ -1,19 +1,24 @@
 // import dependencies
-import React, { useEffect, useState, useCallback } from 'react';
-import { Text, View, ScrollView, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
 import ScreenWrapper from './Common/ScreenWrapper';
 import Loading from './Common/Loading';
-import { baseStyles } from '../Styles/baseStyles';
 import LinkWrapper from './Common/LinkWrapper';
+import Performance from './Performance/Performance';
 // import modules
 import { bandImagePath, bandLogoPath, twitterPath } from '../Modules/paths';
+import getBandPerformance from '../Modules/getBandPerformance';
+import handleLike from '../Modules/handleLike';
 // import styles
+import { baseStyles } from '../Styles/baseStyles';
 import { bandStyles } from '../Styles/bandStyles';
 
 export default function BandInfo({route, navigation}) {
     const [bandInfo, setBandInfo] = useState(false);
+    const [bandPerformance, setBandPerformance] = useState(false);
+
     useEffect(() => {
         (async() => {
             // get local data for venues and performances
@@ -22,10 +27,12 @@ export default function BandInfo({route, navigation}) {
             const bandData = JSON.parse(localBandsData)
                 .filter(band=> band.Name === route.params.band);
             setBandInfo(bandData[0]);
+            const bandPerformance = await getBandPerformance(route.params.band);
+            setBandPerformance(bandPerformance);
         })();
     }, [route.params.band]);
 
-    if (!bandInfo) {
+    if (!bandInfo || !bandPerformance) {
         return (
             <Loading />
         )
@@ -94,6 +101,36 @@ export default function BandInfo({route, navigation}) {
         </Text>
     </View>
 
+    const performances = <View style={bandStyles.bio}>
+        <Text style={baseStyles.stdTitle}>
+            Gig Times
+        </Text>
+        {bandPerformance.map(performance=>{
+            return (
+                <Performance
+                    navigation={navigation}
+                    performance={performance}
+                    key={performance.Id}
+                />
+            )
+        })}
+    </View>
+
+    const like =
+    <View style={[baseStyles.callToActionContainer, {backgroundColor: 'rgba(255, 255, 255, 0.8)'}]}>
+        <TouchableOpacity
+            style={baseStyles.callToActionButton}
+            onPress={() => handleLike(bandInfo)}
+        >
+            <Text style={baseStyles.callToActionText}>
+                Like!
+            </Text>
+        </TouchableOpacity>
+        <Text style={baseStyles.stdText}>
+            Be notified when their show is about to start.
+        </Text>
+    </View>
+
     return (
         <ScreenWrapper
             innerPage={true}
@@ -108,6 +145,8 @@ export default function BandInfo({route, navigation}) {
                     {bandImage}
                 </View>
                 {bandBio}
+                {like}
+                {performances}
                 <View name='socials' style={bandStyles.socials}>
                     {bandTwitter}
                     {bandSpotify}
