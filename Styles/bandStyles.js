@@ -37,5 +37,8 @@ export const bandStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    },
+    unlike: {
+        backgroundColor: '#a0a0a0',
     }
 });

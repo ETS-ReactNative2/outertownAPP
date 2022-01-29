@@ -9,7 +9,7 @@ import LinkWrapper from './Common/LinkWrapper';
 import Performance from './Performance/Performance';
 // import modules
 import { bandImagePath, bandLogoPath, twitterPath } from '../Modules/paths';
-import getBandPerformance from '../Modules/getBandPerformance';
+import { getBandInfo, getBandPerformance, getLiked } from '../Modules/getBandInfo';
 import handleLike from '../Modules/handleLike';
 // import styles
 import { baseStyles } from '../Styles/baseStyles';
@@ -18,17 +18,12 @@ import { bandStyles } from '../Styles/bandStyles';
 export default function BandInfo({route, navigation}) {
     const [bandInfo, setBandInfo] = useState(false);
     const [bandPerformance, setBandPerformance] = useState(false);
-
+    const [bandLiked, setBandLiked] = useState(false);
     useEffect(() => {
         (async() => {
-            // get local data for venues and performances
-            const localBandsData = await AsyncStorage.getItem('@bandsData');
-            // get data for just this band
-            const bandData = JSON.parse(localBandsData)
-                .filter(band=> band.Name === route.params.band);
-            setBandInfo(bandData[0]);
-            const bandPerformance = await getBandPerformance(route.params.band);
-            setBandPerformance(bandPerformance);
+            setBandInfo(await getBandInfo(route.params.band));
+            setBandPerformance(await getBandPerformance(route.params.band));
+            setBandLiked(await getLiked(route.params.band));
         })();
     }, [route.params.band]);
 
@@ -116,18 +111,29 @@ export default function BandInfo({route, navigation}) {
         })}
     </View>
 
+    let likeButtonStyle = null;
+    let likeButtonText = 'Like!';
+    let likeInfoText = 'Be notified when their show is about to start.';
+
+    if (bandLiked) {
+        likeButtonStyle = bandStyles.unlike;
+        likeButtonText = 'Unlike';
+        likeInfoText = "Don't be notified about this band's shows.";
+    }
+    
+
     const like =
     <View style={[baseStyles.callToActionContainer, {backgroundColor: 'rgba(255, 255, 255, 0.8)'}]}>
         <TouchableOpacity
-            style={baseStyles.callToActionButton}
-            onPress={() => handleLike(bandInfo)}
+            style={[baseStyles.callToActionButton, likeButtonStyle]}
+            onPress={() => handleLike(bandInfo, bandLiked, setBandLiked)}
         >
             <Text style={baseStyles.callToActionText}>
-                Like!
+                {likeButtonText}
             </Text>
         </TouchableOpacity>
         <Text style={baseStyles.stdText}>
-            Be notified when their show is about to start.
+            {likeInfoText}
         </Text>
     </View>
 
