@@ -1,7 +1,6 @@
 // load dependencies
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Button, View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal';
@@ -13,8 +12,7 @@ import AllPerformanceHeader from './AllPerformanceHeader';
 import HideAllPerformances from './HideAllPerformances';
 // load modules
 import parsePerformances from '../../Modules/parsePerformances';
-// import styles
-import { baseStyles } from '../../Styles/baseStyles';
+
 
 export default function AllPerformances(props) {
     const [showModal, setShowModal] = useState(props.showAllPerformances);

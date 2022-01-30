@@ -1,7 +1,6 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
 import ScreenWrapper from './Common/ScreenWrapper';
 import Loading from './Common/Loading';
@@ -103,7 +102,6 @@ export default function BandInfo({route, navigation}) {
         {bandPerformance.map(performance=>{
             return (
                 <Performance
-                    navigation={navigation}
                     performance={performance}
                     key={performance.Id}
                 />

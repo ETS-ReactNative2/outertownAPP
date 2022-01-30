@@ -71,6 +71,6 @@ export const baseStyles = StyleSheet.create({
     },
     imageBackgroundImageStyle: {
       width: '100%',
-      height: 875 // fudge, calculated to match logo
+      height: 1525 // fudge, calculated to match logo road width
     }
 })

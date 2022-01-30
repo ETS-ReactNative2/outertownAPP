@@ -21,6 +21,7 @@ export const venueStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '2%',
+    zIndex: 2,
   },
   venueLogo: {
     flex: 1,
@@ -35,7 +36,7 @@ export const venueStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    top: '3%',
+    top: '2%',
   },
   venueFullImage: {
     width: '80%',
@@ -44,11 +45,13 @@ export const venueStyles = StyleSheet.create({
   venueListImage: {
     width: '80%',
     height: 80, // fixed height for image display
+    zIndex: 1,
   },
   venueDiv: {
     width:'100%',
     padding: '2%',
     alignItems: 'center',
+    backgroundColor: 'rgba(244, 244, 236, 0.5)',
   },
   venueAddressText: {
     fontFamily: 'KoHo',
