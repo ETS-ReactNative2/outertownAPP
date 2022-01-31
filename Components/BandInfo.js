@@ -124,7 +124,7 @@ export default function BandInfo({route, navigation}) {
     <View style={[baseStyles.callToActionContainer, {backgroundColor: 'rgba(255, 255, 255, 0.8)'}]}>
         <TouchableOpacity
             style={[baseStyles.callToActionButton, likeButtonStyle]}
-            onPress={() => handleLike(bandInfo, bandLiked, setBandLiked)}
+            onPress={() => handleLike(bandInfo, bandLiked, setBandLiked, bandPerformance)}
         >
             <Text style={baseStyles.callToActionText}>
                 {likeButtonText}
