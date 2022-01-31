@@ -1,6 +1,6 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
-import { Text, Button, View, ScrollView } from 'react-native';
+import { Text, Image, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
 import ScreenWrapper from './Common/ScreenWrapper.js';
@@ -8,6 +8,9 @@ import Loading from './Common/Loading.js';
 import LinkWrapper from './Common/LinkWrapper.js';
 import OTLogo from './Common/OTLogo.js';
 import VenueList from './Venue/VenueList.js'
+// import modules
+import { cacheImages } from '../Modules/prepare.js';
+import { venueImagePath, venueLogoPath } from '../Modules/paths';
 // import styles
 import { baseStyles } from '../Styles/baseStyles.js';
 import { venueStyles } from '../Styles/venueStyles'
@@ -17,8 +20,17 @@ export default function HomeScreen({route, navigation}) {
     useEffect(() => {
         (async() => {
             // get venue data from local storage
-            const localVenuesData = await AsyncStorage.getItem('@venuesData');
-            setVenuesInfo(JSON.parse(localVenuesData));
+            let localVenuesData = await AsyncStorage.getItem('@venuesData');
+            localVenuesData = JSON.parse(localVenuesData)
+            let images = [];
+            for (let venue of localVenuesData) {
+                if (venue.VenueImg)
+                images.push(`${venueImagePath}${venue.VenueImg}`);
+                if (venue.VenueLogo)
+                images.push(`${venueLogoPath}${venue.VenueLogo}`);
+            }
+            await cacheImages(images);
+            setVenuesInfo(localVenuesData);
         })();
     }, []);
 

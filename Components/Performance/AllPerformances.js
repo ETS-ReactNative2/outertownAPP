@@ -20,12 +20,14 @@ export default function AllPerformances(props) {
 
     const navigation = useNavigation();
 
-    function modalSwiper({nativeEvent}) {
-        toggleModal()
+    function swipeCancelled(e) {
+        props.setShowAllPerformances(true);
+        setShowModal(true);
     }
 
     const toggleModal = () => {
-        props.setShowAllPerformances(!showModal)
+        props.setShowAllPerformances(false);
+        setShowModal(false);
     };
 
     useEffect(() => {
@@ -58,8 +60,9 @@ export default function AllPerformances(props) {
             animationIn={'slideInRight'}
             animationOut={'slideOutRight'}
             swipeDirection='right'
-            onSwipeComplete={modalSwiper}
-            swipeThreshold={100}
+            onSwipeCancel={swipeCancelled}
+            onSwipeComplete={toggleModal}
+            swipeThreshold={155}
             backdropColor='#eeeeee'
             backdropOpacity={0.9}
             onBackButtonPress={toggleModal}

@@ -2,5 +2,7 @@
 export default function handleSwipe({ nativeEvent }, setShowAllPerformances) {
     if (nativeEvent.translationX < -155) {
         setShowAllPerformances(true);
+    } else {
+        return;
     }
 }

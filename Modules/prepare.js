@@ -1,4 +1,5 @@
 // import dependencies
+import { Image } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -100,3 +101,9 @@ export default async function prepare() {
       return null;
     }
   }
+
+  export const cacheImages = async (images) => {
+    return images.map(image => {
+        return Image.prefetch(image);
+    })
+}

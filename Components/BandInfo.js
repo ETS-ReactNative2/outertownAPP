@@ -9,6 +9,7 @@ import Performance from './Performance/Performance';
 // import modules
 import { bandImagePath, bandLogoPath, twitterPath } from '../Modules/paths';
 import { getBandInfo, getBandPerformance, getLiked } from '../Modules/getBandInfo';
+import { cacheImages } from '../Modules/prepare';
 import handleLike from '../Modules/handleLike';
 // import styles
 import { baseStyles } from '../Styles/baseStyles';
@@ -20,7 +21,14 @@ export default function BandInfo({route, navigation}) {
     const [bandLiked, setBandLiked] = useState(false);
     useEffect(() => {
         (async() => {
-            setBandInfo(await getBandInfo(route.params.band));
+            const bandInfo = await getBandInfo(route.params.band);
+            const images = [];
+            setBandInfo(bandInfo);
+            if (bandInfo.BandImg)
+                images.push(`${bandImagePath}${bandInfo.BandImg}`);
+            if (bandInfo.BandLogo)
+                images.push(`${bandLogoPath}${bandInfo.BandLogo}`);
+            await cacheImages(images);
             setBandPerformance(await getBandPerformance(route.params.band));
             setBandLiked(await getLiked(route.params.band));
         })();
