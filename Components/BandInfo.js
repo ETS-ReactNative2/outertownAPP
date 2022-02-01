@@ -72,7 +72,10 @@ export default function BandInfo({route, navigation}) {
     }
 
     if (bandInfo.Twitter) {
-        const twitComp = <View>
+        const twitComp = <View
+            accessible={true}
+            accessibilityLabel={`Link to Twitter account of ${bandInfo.Name}`}
+        >
             <Image
                 resizeMode='cover'
                 source={require('../assets/graphics/socials/tw.png')}
@@ -85,7 +88,10 @@ export default function BandInfo({route, navigation}) {
     }
     
     if (bandInfo.Spotify) {
-        const spotComp = <View>
+        const spotComp = <View
+            accessible={true}
+            accessibilityLabel={`Link to Spotify account of ${bandInfo.Name}`}
+        >
             <Image
                 resizeMode='cover'
                 source={require('../assets/graphics/socials/sp.png')}
@@ -98,14 +104,22 @@ export default function BandInfo({route, navigation}) {
     }
 
     if (bandInfo.Location) {
-        bandLocation = <View style={bandStyles.location}>
+        bandLocation = <View
+            accessible={true}
+            accessibilityLabel={`The city that ${bandInfo.Name} come from`}
+            style={bandStyles.location}
+        >
             <Text style={baseStyles.stdText}>
                 ({bandInfo.Location})
             </Text>
         </View>
     }
 
-    bandBio = <View style={bandStyles.bio}>
+    bandBio = <View
+        accessible={true}
+        accessibilityLabel={`Biography of ${bandInfo.Name}`}
+        style={bandStyles.bio}
+    >
         <Text style={baseStyles.stdText}>
             {bandInfo.Bio ? bandInfo.Bio : '[no bio yet]'}
         </Text>
@@ -145,6 +159,8 @@ export default function BandInfo({route, navigation}) {
     const like =
     <View style={[baseStyles.callToActionContainer, {backgroundColor: 'rgba(255, 255, 255, 0.8)'}]}>
         <TouchableOpacity
+            accessible={true}
+            accessibilityLabel={`Click to ${likeButtonText} ${bandInfo.Name}. ${likeInfoText}`}
             style={[baseStyles.callToActionButton, likeButtonStyle, buttonBusyStyle]}
             onPress={() => {
                 setButtonBusy(true);
@@ -166,11 +182,19 @@ export default function BandInfo({route, navigation}) {
             innerPage={true}
         >
             <View style={baseStyles.contentContainer}>
-                <View style={bandStyles.bandHeader}>
+                <View
+                accessible={true}
+                accessibilityLabel={`Band name and logo`}
+                style={bandStyles.bandHeader}
+                >
                     {bandLogo}
                     {bandLocation}
                 </View>
-                <View style={bandStyles.bandImageContainer}>
+                <View
+                    accessible={true}
+                    accessibilityLabel={`Image of ${bandInfo.Name}.`}
+                    style={bandStyles.bandImageContainer}
+                >
                     {bandImage}
                 </View>
                 {bandBio}

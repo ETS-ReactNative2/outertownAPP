@@ -16,6 +16,8 @@ export default function VenueTitle(props) {
     let textTitle, logoTitle;
     if (venue.VenueLogo !== '') {
         logoTitle = (<View
+            accessible={true}
+            accessibilityLabel={`Logo of venue ${venue.Name}`}
             style={venueStyles.venueLogo}
         >
             <Image
@@ -29,6 +31,8 @@ export default function VenueTitle(props) {
         const fontSize = parseInt(venue.TitleFontSize);
         const appFont = venue.TitleFont.replace(/ /g, '');
         textTitle = (<View
+            accessible={true}
+            accessibilityLabel={`Venue name`}
             style={venueStyles.venueTitle}
         >
             <Text

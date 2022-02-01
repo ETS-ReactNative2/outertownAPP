@@ -54,6 +54,8 @@ export default function HomeScreen({route, navigation}) {
     if (today < festivalDayStart) {
         buyTickets = (
             <LinkWrapper
+                accessible={true}
+                accessibilityLabel={`External link to buy tickets for Outer Town Festival`}
                 url={"https://www.gigantic.com/outer-town-festival-tickets/bristol-various-bristol-venues/2022-04-10-14-30"}
                 linkComponent={
                 <View style={[baseStyles.callToActionContainer, baseStyles.callToActionTickets]}>

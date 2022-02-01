@@ -1,6 +1,6 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, ScrollView } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
 import ScreenWrapper from '../Common/ScreenWrapper';
@@ -52,10 +52,16 @@ export default function VenueInfo({ route, navigation }) {
                     <VenueTitle
                         venue={venueInfo}
                     />
-                    <Text style={venueStyles.venueAddressText}>
+                    <Text
+                        accessible={true}
+                        accessibilityLabel={`Address of venue ${venueInfo.Name}`}
+                        style={venueStyles.venueAddressText}
+                    >
                         {venueInfo.Address}
                     </Text>
                     <Image
+                        accessible={true}
+                        accessibilityLabel={`Image of venue ${venueInfo.Name}`}
                         style={venueStyles.venueFullImage}
                         source={{uri: venueImagePath+venueInfo.VenueImg}}
                         resizeMode='contain'

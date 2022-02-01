@@ -11,6 +11,7 @@ import { performanceStyles } from '../../Styles/performanceStyles';
 export default function HideAllPerformances(props) {
     return (
         <TouchableOpacity
+                accessible={true}
                 onPress={props.toggleModal}
                 style={performanceStyles.hideButton}
             >
