@@ -75,7 +75,7 @@ export default function AllPerformances(props) {
             backdropOpacity={0.9}
             onBackButtonPress={toggleModal}
             style={{zIndex: 1}}
-            accessibilityActions={[{ name: 'activate', label: 'View or hide full gig schedule' }]}
+            accessibilityActions={[{ name: 'activate' }]}
             onAccessibilityAction={({ nativeEvent }) => {
                 if (nativeEvent.actionName === 'activate') {
                     setShowAllPerformances(!props.showAllPerformances)
