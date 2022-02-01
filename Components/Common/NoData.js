@@ -1,13 +1,24 @@
+// import dependencies
 import React from 'react';
-import { Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View } from 'react-native';
+// import components
+import ScreenWrapper from './ScreenWrapper';
+import OTLogo from './OTLogo';
+import { baseStyles } from '../../Styles/baseStyles';
 
 export default function NoData() {
     return (
-        <SafeAreaView>
-            <Text>
-                App needs to connect to the internet to retrieve the latest Outer Town data. Please try again when you have a connection.
-            </Text>
-        </SafeAreaView>
+        <ScreenWrapper
+            innerPage={true}
+        >
+            <View style={baseStyles.contentContainer}>
+                <OTLogo />
+                <View style={baseStyles.textContainer}>
+                    <Text style={baseStyles.stdTitle}>
+                        App needs to connect to the internet to retrieve the latest Outer Town data. Please try again when you have a connection.
+                    </Text>
+                </View>
+            </View>
+        </ScreenWrapper>
     )
 }

@@ -16,6 +16,7 @@ export const baseStyles = StyleSheet.create({
       minHeight: screenHeight,
     },
     contentContainer: {
+      flex: 1,
       width: '100%',
       justifyContent: 'flex-start',
       paddingBottom: 40, // extra padding so there's always some scroll space
@@ -72,5 +73,14 @@ export const baseStyles = StyleSheet.create({
     imageBackgroundImageStyle: {
       width: '100%',
       height: 1525 // fudge, calculated to match logo road width
-    }
+    },
+    textContainer: {
+      width: '100%',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      padding: '7%',
+      marginBottom: '3%',
+      backgroundColor: 'rgba(244, 244, 236, 0.7)',
+
+  },
 })

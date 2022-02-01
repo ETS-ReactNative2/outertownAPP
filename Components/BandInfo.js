@@ -1,6 +1,6 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
-import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 // import components
 import ScreenWrapper from './Common/ScreenWrapper';
 import Loading from './Common/Loading';
@@ -19,6 +19,8 @@ export default function BandInfo({route, navigation}) {
     const [bandInfo, setBandInfo] = useState(false);
     const [bandPerformance, setBandPerformance] = useState(false);
     const [bandLiked, setBandLiked] = useState(false);
+    const [buttonBusy, setButtonBusy] = useState(false);
+
     useEffect(() => {
         (async() => {
             const bandInfo = await getBandInfo(route.params.band);
@@ -126,13 +128,23 @@ export default function BandInfo({route, navigation}) {
         likeButtonText = 'Unlike';
         likeInfoText = "Don't be notified about this band's shows.";
     }
+
+    let buttonBusyStyle = null;
+    if (buttonBusy) {
+        buttonBusyStyle = bandStyles.buttonBusy;
+        likeButtonText = '...';
+    }
     
 
     const like =
     <View style={[baseStyles.callToActionContainer, {backgroundColor: 'rgba(255, 255, 255, 0.8)'}]}>
         <TouchableOpacity
-            style={[baseStyles.callToActionButton, likeButtonStyle]}
-            onPress={() => handleLike(bandInfo, bandLiked, setBandLiked, bandPerformance)}
+            style={[baseStyles.callToActionButton, likeButtonStyle, buttonBusyStyle]}
+            onPress={() => {
+                setButtonBusy(true);
+                handleLike(bandInfo, bandLiked, setBandLiked, bandPerformance, setButtonBusy);
+                }
+            }
         >
             <Text style={baseStyles.callToActionText}>
                 {likeButtonText}
@@ -147,13 +159,12 @@ export default function BandInfo({route, navigation}) {
         <ScreenWrapper
             innerPage={true}
         >
-        <ScrollView style={baseStyles.content}>
             <View style={baseStyles.contentContainer}>
-                <View style={{flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: '3%',}}>
+                <View style={bandStyles.bandHeader}>
                     {bandLogo}
                     {bandLocation}
                 </View>
-                <View style={{justifyContent: 'center', alignItems: 'center', width: '100%',}}>
+                <View style={bandStyles.bandImageContainer}>
                     {bandImage}
                 </View>
                 {bandBio}
@@ -164,8 +175,9 @@ export default function BandInfo({route, navigation}) {
                     {bandSpotify}
                     {bandWeb}
                 </View>
+                {/* spacer - padding on content container not working? */}
+                <View style={{height: 80}}></View>
             </View>
-        </ScrollView>
-    </ScreenWrapper>
+        </ScreenWrapper>
     )
 }

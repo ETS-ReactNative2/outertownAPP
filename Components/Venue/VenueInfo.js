@@ -41,36 +41,34 @@ export default function VenueInfo({ route, navigation }) {
         <ScreenWrapper
             innerPage={true}
         >
-            <ScrollView style={baseStyles.content}>
-                <View style={baseStyles.contentContainer}>
-                    <View style={venueStyles.venueDiv}>
-                        <VenueTitle
-                            venue={venueInfo}
-                        />
-                        <Text style={venueStyles.venueAddressText}>
-                            {venueInfo.Address}
-                        </Text>
-                        <Image
-                            style={venueStyles.venueFullImage}
-                            source={{uri: venueImagePath+venueInfo.VenueImg}}
-                            resizeMode='contain'
-                        />
-                    </View>
-                    {/* <View style={venueStyles.venueDiv}>
-                        <Text style={venueStyles.venueInfoText}>
-                            {venueInfo.Info}
-                        </Text>
-                    </View> */}
-                    <View style={{flex: 2, padding: '3%'}}>
-
-                    {performances.map((performance)=><Performance
-                        navigation={navigation}
-                        performance={performance}
-                        key={performance.Id}
-                    />)}
-                    </View>
+            <View style={baseStyles.contentContainer}>
+                <View style={venueStyles.venueDiv}>
+                    <VenueTitle
+                        venue={venueInfo}
+                    />
+                    <Text style={venueStyles.venueAddressText}>
+                        {venueInfo.Address}
+                    </Text>
+                    <Image
+                        style={venueStyles.venueFullImage}
+                        source={{uri: venueImagePath+venueInfo.VenueImg}}
+                        resizeMode='contain'
+                    />
                 </View>
-            </ScrollView>
+                {/* <View style={venueStyles.venueDiv}>
+                    <Text style={venueStyles.venueInfoText}>
+                        {venueInfo.Info}
+                    </Text>
+                </View> */}
+                <View style={{flex: 2, padding: '3%'}}>
+
+                {performances.map((performance)=><Performance
+                    navigation={navigation}
+                    performance={performance}
+                    key={performance.Id}
+                />)}
+                </View>
+            </View>
         </ScreenWrapper>
     )
 }

@@ -33,6 +33,7 @@ export default function AllPerformances(props) {
     useEffect(() => {
         (async() => {
             // get venue data from local storage
+            // TODO filter performances to only those whose end time is after now
             const localPerformancesData = await AsyncStorage.getItem('@performancesData');
             setPerformances(parsePerformances(localPerformancesData));
         })();
@@ -46,6 +47,8 @@ export default function AllPerformances(props) {
     let performanceSchedule;
     if (!performances)
         performanceSchedule = <Loading />;
+    else if (performances.length === 0)
+        return null
     else {
         performanceSchedule = performances.map((performance)=><Performance
                 navigation={navigation}

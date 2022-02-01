@@ -1,19 +1,20 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
-import { Text, Image, View, ScrollView } from 'react-native';
+import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
-import ScreenWrapper from './Common/ScreenWrapper.js';
-import Loading from './Common/Loading.js';
-import LinkWrapper from './Common/LinkWrapper.js';
-import OTLogo from './Common/OTLogo.js';
-import VenueList from './Venue/VenueList.js'
+import ScreenWrapper from '../Common/ScreenWrapper.js';
+import Loading from '../Common/Loading.js';
+import LinkWrapper from '../Common/LinkWrapper.js';
+import OTLogo from '../Common/OTLogo.js';
+import VenueList from '../Venue/VenueList.js'
+import PostShowHome from './PostShowHome.js';
 // import modules
-import { cacheImages } from '../Modules/prepare.js';
-import { venueImagePath, venueLogoPath } from '../Modules/paths';
+import { cacheImages } from '../../Modules/prepare.js';
+import { venueImagePath, venueLogoPath } from '../../Modules/paths';
 // import styles
-import { baseStyles } from '../Styles/baseStyles.js';
-import { venueStyles } from '../Styles/venueStyles'
+import { baseStyles } from '../../Styles/baseStyles.js';
+import { venueStyles } from '../../Styles/venueStyles'
 
 export default function HomeScreen({route, navigation}) {
     const [venuesInfo, setVenuesInfo] = useState(false);
@@ -29,8 +30,8 @@ export default function HomeScreen({route, navigation}) {
                 if (venue.VenueLogo)
                 images.push(`${venueLogoPath}${venue.VenueLogo}`);
             }
-            await cacheImages(images);
-            setVenuesInfo(localVenuesData);
+            await cacheImages(images)
+            .then(res=>setVenuesInfo(localVenuesData));
         })();
     }, []);
 
@@ -40,14 +41,7 @@ export default function HomeScreen({route, navigation}) {
     const festivalDayEnd = Date.parse(new Date(Date.UTC(2022, 3, 11, 4)));
     // after the festival, display trailer for 2023
     if (today > festivalDayEnd) {
-        return (
-            <View>
-                <OTLogo />
-                <Text>
-                    You missed it - try again next year!
-                </Text>
-            </View>
-        )
+        return (<PostShowHome />)
     }
     // before the festival, display buy ticket call to action
     let buyTickets;

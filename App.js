@@ -13,7 +13,7 @@ import { JacquesFrancoisShadow_400Regular as JacquesFrancoisShadow } from '@expo
 import { InriaSerif_700Bold as InriaSerif } from '@expo-google-fonts/inria-serif';
 import { KaiseiTokumin_800ExtraBold as KaiseiTokumin } from '@expo-google-fonts/kaisei-tokumin';
 // import components
-import HomeScreen from './Components/HomeScreen';
+import HomeScreen from './Components/Home/HomeScreen';
 import BandInfo from './Components/BandInfo';
 import VenueInfo from './Components/Venue/VenueInfo';
 import NoData from './Components/Common/NoData';
@@ -31,7 +31,10 @@ Notifications.setNotificationHandler({
   }),
 });
 
-// TODO Setup global store for info
+// TODO comment and homogenise code (functions etc)
+// TODO async loading of assets - make sure it's actually happening
+// TODO accessibility pass
+// TODO unit testing?
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -61,7 +64,16 @@ export default function App() {
 
   if (!dataAvailable) {
     return (
-      <NoData />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="No Data"
+            options={{headerShow: false}}
+            component={NoData}
+            cardStyle={{height:'100%'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     )
   }
   return (
