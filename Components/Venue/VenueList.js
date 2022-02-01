@@ -17,6 +17,8 @@ export default function VenueList(props) {
     const navigation = props.navigation;
     return (
         <TouchableOpacity
+            accessible={true}
+            accessibilityLabel={`Navigate to information page for venue ${venueInfo.Name}`}
             onPress={()=>{navigation.navigate('Venue Info', {
                     venue: venueInfo,
                 })}
@@ -30,6 +32,8 @@ export default function VenueList(props) {
             />
 
             <Image
+                accessible={true}
+                accessibilityLabel={`Image of venue ${venueInfo.Name}`}
                 style={venueStyles.venueListImage}
                 source={{uri: venueImagePath+venueInfo.VenueImg}}
             />

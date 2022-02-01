@@ -38,31 +38,31 @@ export default function Loading() {
     }
     return (
         <SafeAreaView>
-        <Animated.View
-            style={[{backgroundColor: '#f4f4ec', justifyContent: 'center', alignItems: 'center', height: '100%'}, {opacity: containerFade}]}
-        >
             <Animated.View
-                style={{
-                    padding: '15%',
-                    backgroundColor: '#00000099',
-                    borderRadius: 25,
-                    zIndex: 2,
-                    opacity: textFade,
-                }}
+                style={[{backgroundColor: '#f4f4ec', justifyContent: 'center', alignItems: 'center', height: '100%'}, {opacity: containerFade}]}
             >
-                <Text style={[baseStyles.stdTitle, {color: '#ffffff'}]}>
-                    Loading...
-                </Text>
-            </Animated.View>
-            <Animated.Image
-                source={require('../../assets/graphics/road-bg-long.png')}
-                resizeMode='contain'
-                style={[baseStyles.imageBackgroundStyle, {position: 'absolute', top:aniX}]}
-                imageStyle={baseStyles.imageBackgroundImageStyle}
-            >
+                <Animated.View
+                    style={{
+                        padding: '15%',
+                        backgroundColor: '#00000099',
+                        borderRadius: 25,
+                        zIndex: 2,
+                        opacity: textFade,
+                    }}
+                >
+                    <Text style={[baseStyles.stdTitle, {color: '#ffffff'}]}>
+                        Loading...
+                    </Text>
+                </Animated.View>
+                <Animated.Image
+                    source={require('../../assets/graphics/road-bg-long.png')}
+                    resizeMode='contain'
+                    style={[baseStyles.imageBackgroundStyle, {position: 'absolute', top:aniX}]}
+                    imageStyle={baseStyles.imageBackgroundImageStyle}
+                >
 
-            </Animated.Image>
-        </Animated.View>
+                </Animated.Image>
+            </Animated.View>
         </SafeAreaView>
     )
 }

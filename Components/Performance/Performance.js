@@ -19,6 +19,8 @@ export default function Performance(props) {
                     </Text>;
     if (navigation) {
         bandName = <Pressable
+            accessible={true}
+            accessibilityLabel={`Navigate to information page for band ${performance.Band}`}
             onPressOut={() => {
                 if (toggleModal)
                     toggleModal();
@@ -33,7 +35,11 @@ export default function Performance(props) {
         </Pressable>
     }
     return (
-        <View style={giglistStyles.gigRow}>
+        <View
+            accessible={true}
+            accessibilityLabel={`Details of a performance`}
+            style={giglistStyles.gigRow}
+        >
             <View style={giglistStyles.venue}>
                 <Text style={giglistStyles.textVenue}>
                     {performance.Stage}

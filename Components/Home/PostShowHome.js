@@ -23,8 +23,9 @@ export function PostShowHome() {
                     Cluny and Harry
                 </Text>
                 <LinkWrapper
-                url={"https://mailchi.mp/cf59187e2145/outer-town"}
-                linkComponent={
+                    accessible={true}
+                    url={"https://mailchi.mp/cf59187e2145/outer-town"}
+                    linkComponent={
                     <View style = {{width: '100%', marginTop: '5%'}}>
                         <View style={baseStyles.callToActionButton}>
                             <Text style={baseStyles.callToActionText}>

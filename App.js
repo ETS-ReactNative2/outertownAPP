@@ -32,7 +32,6 @@ Notifications.setNotificationHandler({
 });
 
 // TODO async loading of assets - make sure it's actually happening
-// TODO accessibility pass
 // TODO unit testing?
 // TODO search artist bar on all performances modal
 // TODO modal hide issue
