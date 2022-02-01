@@ -6,6 +6,7 @@ import { PanGestureHandler, ScrollView } from 'react-native-gesture-handler';
 // import components
 import AllPerformances from '../Performance/AllPerformances';
 import SwipeHeader from './SwipeHeader';
+import PrivacyFooter from './PrivacyFooter';
 // import modules
 import handleSwipe from '../../Modules/handleSwipe.js';
 // import styles
@@ -44,6 +45,7 @@ function PageContainer(props) {
  * @returns {Component}
  */
 export default function ScreenWrapper(props) {
+    const navigation = props.navigation ? props.navigation : null;
 	const [showAllPerformances, setShowAllPerformances] = useState(false);
     return (
         <PanGestureHandler
@@ -67,6 +69,9 @@ export default function ScreenWrapper(props) {
                             setShowAllPerformances={setShowAllPerformances}
                         />
                         {props.children}
+                        <PrivacyFooter
+                            navigation={navigation}
+                        />
                     </ImageBackground>
                 </PageContainer>
             </ScrollView>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SearchBar } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // load components
@@ -12,6 +13,7 @@ import AllPerformanceHeader from './AllPerformanceHeader';
 import HideAllPerformances from './HideAllPerformances';
 // load modules
 import parsePerformances from '../../Modules/parsePerformances';
+import { baseStyles } from '../../Styles/baseStyles';
 
 /**
  * @function AllPerformances : 
@@ -22,15 +24,30 @@ import parsePerformances from '../../Modules/parsePerformances';
 export default function AllPerformances(props) {
     const [showModal, setShowModal] = useState(props.showAllPerformances);
     const [performances, setPerformances] = useState(false);
-
+    const [allPerformances, setAllPerformances] = useState(false);
+    const [search, setSearch] = useState('');
+    const [scrollEnabled, setScrollEnabled] = useState(true);
+    const [deactivatePressables, setDeactivatePressables] = useState(false);
     const navigation = useNavigation();
 
+    function updateSearch(search) {
+        const re = new RegExp(search, 'i');
+        setPerformances(allPerformances.filter(performance => {
+            return re.test(performance.Band);
+        }));
+        setSearch(search);
+    }
+
     function swipeCancelled(e) {
+        setScrollEnabled(true);
+        setDeactivatePressables(false);
         props.setShowAllPerformances(true);
         setShowModal(true);
     }
 
     const toggleModal = () => {
+        setScrollEnabled(true);
+        setDeactivatePressables(false);
         props.setShowAllPerformances(false);
         setShowModal(false);
     };
@@ -39,8 +56,10 @@ export default function AllPerformances(props) {
         (async() => {
             // get venue data from local storage
             // TODO filter performances to only those whose end time is after now
-            const localPerformancesData = await AsyncStorage.getItem('@performancesData');
-            setPerformances(parsePerformances(localPerformancesData));
+            let localPerformancesData = await AsyncStorage.getItem('@performancesData');
+            localPerformancesData = parsePerformances(localPerformancesData);
+            setPerformances(localPerformancesData);
+            setAllPerformances(localPerformancesData);
         })();
     }, []);
 
@@ -51,15 +70,25 @@ export default function AllPerformances(props) {
     // build schedule
     let performanceSchedule;
     if (!performances)
-        performanceSchedule = <Loading />;
-    else if (performances.length === 0)
-        return null
-    else {
+        return <Loading />;
+    else if (performances.length === 0) {
+        performanceSchedule = <Performance
+            performance={{
+                Band: 'No bands fit the search',
+                Stage: '',
+                StartSting: '',
+                EndString: '',
+            }}
+            toggleModal={null}
+            key={1}
+        />
+    } else {
         performanceSchedule = performances.map((performance)=><Performance
                 navigation={navigation}
                 performance={performance}
                 toggleModal={toggleModal}
                 key={performance.Id}
+                deactivatePressables={deactivatePressables}
             />)
     }
     return (
@@ -68,6 +97,10 @@ export default function AllPerformances(props) {
             animationIn={'slideInRight'}
             animationOut={'slideOutRight'}
             swipeDirection='right'
+            onSwipeStart={()=>{
+                setScrollEnabled(false);
+                setDeactivatePressables(true);
+            }}
             onSwipeCancel={swipeCancelled}
             onSwipeComplete={toggleModal}
             swipeThreshold={155}
@@ -83,12 +116,24 @@ export default function AllPerformances(props) {
                 }
             }}
         >
-            <ScrollView>
+            <ScrollView
+                contentContainerStyle={{zIndex:0}}
+                scrollEnabled={scrollEnabled}
+            >
                 <SafeAreaView>
+                    <SearchBar
+                        placeholder='Search bands...'
+                        onChangeText={updateSearch}
+                        value={search}
+                        containerStyle={{backgroundColor: 'transparent'}}
+                        inputContainerStyle={{backgroundColor: '#ffffff'}}
+                        inputStyle={baseStyles.stdText}
+                    />
                     <AllPerformanceHeader />
                     {performanceSchedule}
                     <HideAllPerformances
                         toggleModal={toggleModal}
+                        deactivatePressables={deactivatePressables}
                     />
                 </SafeAreaView>
             </ScrollView>

@@ -17,6 +17,7 @@ import HomeScreen from './Components/Home/HomeScreen';
 import BandInfo from './Components/BandInfo';
 import VenueInfo from './Components/Venue/VenueInfo';
 import NoData from './Components/Common/NoData';
+import PrivacyPolicy from './Components/Privacy';
 // import functional modules
 import prepare from './Modules/prepare';
 
@@ -33,8 +34,6 @@ Notifications.setNotificationHandler({
 
 // TODO async loading of assets - make sure it's actually happening
 // TODO unit testing?
-// TODO search artist bar on all performances modal
-// TODO modal hide issue
 
 /**
  * @function App : 
@@ -99,6 +98,10 @@ const App = () => {
           name="Band Info"
           component={BandInfo}
           cardStyle={{height:'100%'}}
+        />
+        <Stack.Screen
+          name="Privacy Policy"
+          component={PrivacyPolicy}
         />
       </Stack.Navigator>
     </NavigationContainer>

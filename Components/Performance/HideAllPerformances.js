@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable } from 'react-native';
 import { performanceStyles } from '../../Styles/performanceStyles';
 
 /**
@@ -9,17 +9,21 @@ import { performanceStyles } from '../../Styles/performanceStyles';
  * @returns {Component}
  */
 export default function HideAllPerformances(props) {
+    const [pressOpacity, setpressOpacity] = useState(1)
+    const deactivatePressables = props.deactivatePressables ? props.deactivatePressables : false;
     return (
-        <TouchableOpacity
+        <Pressable
                 accessible={true}
-                onPress={props.toggleModal}
+                disabled={deactivatePressables}
+                onPressIn={()=>setpressOpacity(0.2)}
+                onPressOut={props.toggleModal}
                 style={performanceStyles.hideButton}
             >
-            <View>
+            <View style={{opacity: pressOpacity}}>
                 <Text style={performanceStyles.hideText}>
                     Hide Giglist
                 </Text>
             </View>        
-        </TouchableOpacity>
+        </Pressable>
     )
 }

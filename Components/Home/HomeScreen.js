@@ -47,7 +47,11 @@ export default function HomeScreen({route, navigation}) {
     const festivalDayEnd = Date.parse(new Date(Date.UTC(2022, 3, 11, 4)));
     // after the festival, display trailer for 2023
     if (today > festivalDayEnd) {
-        return (<PostShowHome />)
+        return (
+            <PostShowHome
+                navigation={navigation}
+            />
+        )
     }
     // before the festival, display buy ticket call to action
     let buyTickets;
@@ -78,7 +82,9 @@ export default function HomeScreen({route, navigation}) {
     }
     
     return (
-        <ScreenWrapper>
+        <ScreenWrapper
+            navigation={navigation}
+        >
             <View style={baseStyles.contentContainer}>
                 <OTLogo />
                 {buyTickets}

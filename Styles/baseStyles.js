@@ -9,7 +9,9 @@ export const baseStyles = StyleSheet.create({
       width: '100%',
       backgroundColor: '#f4f4ec',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      position: 'relative',
+      minHeight: screenHeight,
     },
     content: {
       width: '100%',
@@ -81,6 +83,13 @@ export const baseStyles = StyleSheet.create({
       padding: '7%',
       marginBottom: '3%',
       backgroundColor: 'rgba(244, 244, 236, 0.7)',
+    },
+    textTitle: {
+      width: '100%',
+      justifyContent: 'center', 
+      alignItems: 'center',
+      padding: '2%',
+      backgroundColor: '#e4bf49'
+    }
 
-  },
 })

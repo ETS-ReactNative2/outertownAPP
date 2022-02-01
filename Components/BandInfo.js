@@ -180,6 +180,7 @@ export default function BandInfo({route, navigation}) {
     return (
         <ScreenWrapper
             innerPage={true}
+            navigation={navigation}
         >
             <View style={baseStyles.contentContainer}>
                 <View

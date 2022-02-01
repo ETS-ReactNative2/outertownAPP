@@ -46,6 +46,7 @@ export default function VenueInfo({ route, navigation }) {
     return (
         <ScreenWrapper
             innerPage={true}
+            navigation={navigation}
         >
             <View style={baseStyles.contentContainer}>
                 <View style={venueStyles.venueDiv}>
