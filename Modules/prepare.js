@@ -4,6 +4,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
+/**
+ * @function prepare : 
+ * Determines data sources and retrives data on app startup
+ * @returns {Object|null}
+ */
 export default async function prepare() {
   // fetch any necessary information from API on startup
   // if not connected, use local data
@@ -102,7 +107,7 @@ export default async function prepare() {
     }
   }
 
-  export const cacheImages = async (images) => {
+export async function cacheImages(images) {
     return images.map(image => {
         return Image.prefetch(image);
     })

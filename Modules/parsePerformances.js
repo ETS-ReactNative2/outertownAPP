@@ -1,3 +1,10 @@
+/**
+ * @function parsePerformances : 
+ * Takes input json string, parses it into object for use in components
+ * @param {String} performancesData - in json format
+ * @param {String} filterVenue - soecific venue
+ * @returns {Object}
+ */
 export default function parsePerformances(performancesData, filterVenue) {
     let performanceData = JSON.parse(performancesData)
     if (filterVenue)
@@ -8,9 +15,6 @@ export default function parsePerformances(performancesData, filterVenue) {
         performance.StartSting = String(performance.Start.getHours()).padStart(2, '0')+':'+String(performance.Start.getMinutes()).padStart(2, '0');
         performance.EndString = String(performance.End.getHours()).padStart(2, '0')+':'+String(performance.End.getMinutes()).padStart(2, '0');
     }
-    // performanceData.map(performance=>performance.Start = new Date(performance.Start));
-    // performanceData.map(performance=>performance.End = new Date(performance.End));
-    // performanceData.map(performance=>performance.StartSting = String(performance.Start.getHours()).padStart(2, '0')+':'+String(performance.Start.getMinutes()).padStart(2, '0'));
     performanceData = performanceData.sort((a, b)=>Date.parse(a.Start) - Date.parse(b.Start));
     return performanceData;
 }

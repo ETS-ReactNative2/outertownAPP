@@ -4,6 +4,12 @@ import { Text, View, Image } from 'react-native';
 // import styles
 import { venueStyles } from '../../Styles/venueStyles';
 
+/**
+ * @function VenueTitle :
+ * React Native component for displaying a venue title or logo
+ * @param {Object} props 
+ * @returns {Component}
+ */
 export default function VenueTitle(props) {
     const venueLogoPath = 'https://outertownfest.com/assets/images/venueLogos/';
     const venue = props.venue;

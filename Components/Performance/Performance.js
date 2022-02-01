@@ -4,6 +4,12 @@ import { View, Text, Pressable } from 'react-native';
 // import styles
 import { giglistStyles } from '../../Styles/giglistStyles';
 
+/**
+ * @function Performance :
+ * React Native component for displaying information about a performance
+ * @param {Object} props 
+ * @returns {Component}
+ */
 export default function Performance(props) {
     const navigation = props.navigation ? props.navigation : null;
     const performance = props.performance;

@@ -15,6 +15,12 @@ import handleLike from '../Modules/handleLike';
 import { baseStyles } from '../Styles/baseStyles';
 import { bandStyles } from '../Styles/bandStyles';
 
+/**
+ * @function BandInfo :
+ * React Native component for showing information about a band
+ * @param {Navigation} Navigation 
+ * @returns {Component}
+ */
 export default function BandInfo({route, navigation}) {
     const [bandInfo, setBandInfo] = useState(false);
     const [bandPerformance, setBandPerformance] = useState(false);

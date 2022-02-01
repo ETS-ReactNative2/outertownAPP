@@ -4,6 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 // import styles
 import { baseStyles } from '../../Styles/baseStyles';
 
+/**
+ * @function Loading : 
+ * React Native component for displaying animated screen while data is loading asynchronously
+ * @returns {Component}
+ */
 export default function Loading() {
     const aniX = useRef(new Animated.Value(-800)).current;
     const textFade = useRef(new Animated.Value(0)).current;

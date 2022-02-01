@@ -2,12 +2,16 @@ import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 // import Components
 import VenueTitle from './VenueTitle';
-// import styles
-import { baseStyles } from '../../Styles/baseStyles';
 // import modules
 import { venueImagePath } from '../../Modules/paths';
 import { venueStyles } from '../../Styles/venueStyles';
 
+/**
+ * @function VenueList :
+ * React Native component for displaying a list of venues
+ * @param {Object} props 
+ * @returns {Component}
+ */
 export default function VenueList(props) {
     const venueInfo = props.venueInfo;
     const navigation = props.navigation;

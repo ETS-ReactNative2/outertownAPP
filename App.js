@@ -31,12 +31,18 @@ Notifications.setNotificationHandler({
   }),
 });
 
-// TODO comment and homogenise code (functions etc)
 // TODO async loading of assets - make sure it's actually happening
 // TODO accessibility pass
 // TODO unit testing?
+// TODO search artist bar on all performances modal
+// TODO modal hide issue
 
-export default function App() {
+/**
+ * @function App : 
+ * Main react native app
+ * @returns {Component}
+ */
+const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
   const [dataAvailable, setDataAvailable] = useState(false);
   let [fontsLoaded] = useFonts({
@@ -99,3 +105,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default App;

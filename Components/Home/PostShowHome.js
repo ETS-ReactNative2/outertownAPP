@@ -5,7 +5,12 @@ import OTLogo from '../Common/OTLogo';
 import LinkWrapper from '../Common/LinkWrapper';
 import { baseStyles } from '../../Styles/baseStyles';
 
-const PostShowHome = () => {
+/**
+ * @function PostShowHome : 
+ * React Native component to display post-show information screen
+ * @returns {Component}
+ */
+export function PostShowHome() {
     return (
         <ScreenWrapper>
         <View style={baseStyles.contentContainer}>
@@ -34,5 +39,3 @@ const PostShowHome = () => {
         </ScreenWrapper>
     )
 }
-
-export default PostShowHome;

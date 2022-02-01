@@ -2,7 +2,13 @@ import React, { useCallback } from "react";
 import { Alert, Linking, TouchableOpacity } from "react-native";
 
 // adapted from example at https://reactnative.dev/docs/linking
-const LinkWrapper = ({ url, linkComponent, buttonText }) => {
+/**
+ * @function LinkWrapper : 
+ * React Native component for displaying a hyperlinked chile component
+ * @param {Object} param0 
+ * @returns {Component}
+ */
+export default function LinkWrapper({ url, linkComponent, buttonText }) {
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.
     const supported = await Linking.canOpenURL(url);
@@ -21,5 +27,3 @@ const LinkWrapper = ({ url, linkComponent, buttonText }) => {
     {linkComponent}
   </TouchableOpacity>
 };
-
-export default LinkWrapper;

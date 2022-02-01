@@ -1,8 +1,11 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
-import { baseStyles } from '../../Styles/baseStyles';
+import { View, Image } from 'react-native';
 
-
+/**
+ * @function OTLogo : 
+ * React Native component for displaying festival logo
+ * @returns {Component}
+ */
 const OTLogo = () => {
     return (
         <View style={{flex: 1, width: '100%', height: 200, backgroundColor: '#f4f4ec', justifyContent: 'center', alignItems: 'center'}}>

@@ -13,7 +13,12 @@ import HideAllPerformances from './HideAllPerformances';
 // load modules
 import parsePerformances from '../../Modules/parsePerformances';
 
-
+/**
+ * @function AllPerformances : 
+ * React Native component for displaying a list of all performances
+ * @param {Object} props 
+ * @returns {Component}
+ */
 export default function AllPerformances(props) {
     const [showModal, setShowModal] = useState(props.showAllPerformances);
     const [performances, setPerformances] = useState(false);

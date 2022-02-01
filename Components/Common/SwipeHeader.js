@@ -1,7 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text } from 'react-native'
 import { baseStyles } from '../../Styles/baseStyles';
 
+/**
+ * @function SwipeHeader : 
+ * React Native component to display informational screen header
+ * @param {Object} props 
+ * @returns {Component}
+ */
 export default function SwipeHeader(props) {
     return (
         <View style={baseStyles.header}>

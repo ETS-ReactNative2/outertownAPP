@@ -13,6 +13,12 @@ import { venueImagePath } from '../../Modules/paths';
 import { baseStyles } from '../../Styles/baseStyles';
 import { venueStyles } from '../../Styles/venueStyles';
 
+/**
+ * @function VenueInfo :
+ * React Native component for displaying information about a venue
+ * @param {Navigation} param0 
+ * @returns {Component}
+ */
 export default function VenueInfo({ route, navigation }) {
     const [venueInfo, setVenueInfo] = useState(false);
     const [performances, setPerformances] = useState(false);

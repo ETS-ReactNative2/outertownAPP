@@ -11,6 +11,12 @@ import handleSwipe from '../../Modules/handleSwipe.js';
 // import styles
 import { baseStyles } from '../../Styles/baseStyles.js';
 
+/**
+ * @function PageContainer : 
+ * React Native component to provide a container appropriate to the current page
+ * @param {Object} props 
+ * @returns {Component}
+ */
 function PageContainer(props) {
     if (props.innerPage === true) {
         return (
@@ -31,6 +37,12 @@ function PageContainer(props) {
     }
 }
 
+/**
+ * @function ScreenWrapper : 
+ * React Native component providing a template wrapper for each screen
+ * @param {Object} props 
+ * @returns {Component}
+ */
 export default function ScreenWrapper(props) {
 	const [showAllPerformances, setShowAllPerformances] = useState(false);
     return (

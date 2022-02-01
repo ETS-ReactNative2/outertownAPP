@@ -6,6 +6,11 @@ import ScreenWrapper from './ScreenWrapper';
 import OTLogo from './OTLogo';
 import { baseStyles } from '../../Styles/baseStyles';
 
+/**
+ * @function NoData : 
+ * React Native component for displaying content when there is no internet connection and no locally stored data
+ * @returns {Component}
+ */
 export default function NoData() {
     return (
         <ScreenWrapper

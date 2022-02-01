@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: handleLike.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: handleLike.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+
+/**
+ * @function handleLike
+ * Sets up notifications and feedback on a band liked by a user
+ * @param {Object} bandInfo 
+ * @param {Boolean} bandLiked 
+ * @param {Function} setBandLiked 
+ * @param {Object} bandPerformance 
+ * @param {Function} setButtonBusy 
+ * @returns {Null}
+ */
+const handleLike = async (bandInfo, bandLiked, setBandLiked, bandPerformance, setButtonBusy) => {
+  let token;
+  // check if device or simulator
+  if (Device.isDevice) {
+    // see if access already granted
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      setButtonBusy(false);
+      return alert("Notifications won't be sent, permission not granted.");
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+  } else {
+    setButtonBusy(false);
+    return alert ('You are running this app on a simulator, you must use a real device to use push notifications');
+  }
+
+  // make modifications to Android
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (token === undefined) {
+    setButtonBusy(false);
+    return alert("Notifications won't be sent, couldn't confirm notification permissions.");
+  }
+  
+  let apiSuccess = false, localSuccess = false;
+  const body = bandLiked ? JSON.stringify({
+  unlike: bandInfo.Name,
+  pushToken: token,
+  }) : JSON.stringify({
+  like: bandInfo.Name,
+  pushToken: token,
+  bandPerformance: bandPerformance,
+  });
+  try {
+    await fetch('https://outertownfest.com/api/like.php', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body
+    }).then(response => response.json())
+    .then((out) => {
+    apiSuccess = out.result;
+    })
+    let bandsLiked = [];
+    let likes = await AsyncStorage.getItem('@likes');
+    likes = JSON.parse(likes);
+    if (likes === null || likes.length === 0) { // no likes stored yet
+      switch (bandLiked) {
+        case true:
+          // edge case - shouldn't be possible - do nothing
+          setButtonBusy(false);
+          return;
+          break;
+          case false:
+            bandsLiked.push(bandInfo.Name);
+            break;
+      }
+    } else { // some likes already stored
+      bandsLiked = likes;
+      switch (bandLiked) {
+        case true:
+          // remove band from list of likes
+          bandsLiked = bandsLiked.filter(likedBand => likedBand !== bandInfo.Name);
+          break;
+          case false:
+            // add band to list of likes, making sure there's no duplicates
+            bandsLiked = bandsLiked.filter(likedBand => likedBand !== bandInfo.Name);
+            bandsLiked.push(bandInfo.Name);
+            break;
+      }
+    }
+    await AsyncStorage.setItem('@likes', JSON.stringify(bandsLiked));
+    localSuccess = true;
+    if (apiSuccess &amp;&amp; localSuccess) {
+      setButtonBusy(false);
+      return setBandLiked(!bandLiked);
+    } else {
+      bandsLiked = bandsLiked.filter(likedBand => likedBand === bandInfo.Name);
+      AsyncStorage.setItem('@likes', JSON.stringify(bandsLiked));
+    }
+    setButtonBusy(false);
+    setBandLiked(bandLiked);
+  }
+  catch (e) {
+    setButtonBusy(false); 
+  }
+}
+
+export default handleLike;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="paths%250AURL%2520paths%2520used%2520in%2520other%2520scriptsmodule_.html">paths
+URL paths used in other scripts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getBandInfoRetrievebandinfofromlocalstorage">getBandInfo
+Retrieve band info from local storage</a></li><li><a href="global.html#getBandPerformanceRetrieveperformance(s)byabandfromlocalstorage">getBandPerformance
+Retrieve performance(s) by a band from local storage</a></li><li><a href="global.html#getLikedRetrievelikedstatusofbandfromlocalstorage">getLiked
+Retrieve liked status of band from local storage</a></li><li><a href="global.html#handleLikeSetsupnotificationsandfeedbackonabandlikedbyauser">handleLike
+Sets up notifications and feedback on a band liked by a user</a></li><li><a href="global.html#handleSwipeOpensmodalwhenleftscreenswipedetectedhttps://dev.to/nrymarz/creating-a-tinder-style-swiping-component-with-react-native-part-1-2-h45">handleSwipe
+Opens modal when left screen swipe detected
+https://dev.to/nrymarz/creating-a-tinder-style-swiping-component-with-react-native-part-1-2-h45</a></li><li><a href="global.html#parsePerformancesTakesinputjsonstring,parsesitintoobjectforuseincomponents">parsePerformances
+Takes input json string, parses it into object for use in components</a></li><li><a href="global.html#prepareDeterminesdatasourcesandretrivesdataonappstartup">prepare
+Determines data sources and retrives data on app startup</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Feb 01 2022 10:18:45 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

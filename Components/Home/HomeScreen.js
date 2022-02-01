@@ -16,6 +16,12 @@ import { venueImagePath, venueLogoPath } from '../../Modules/paths';
 import { baseStyles } from '../../Styles/baseStyles.js';
 import { venueStyles } from '../../Styles/venueStyles'
 
+/**
+ * @function HomeScreen : 
+ * React Native component to display application home screen
+ * @param {Navigation} param0 
+ * @returns {Component}
+ */
 export default function HomeScreen({route, navigation}) {
     const [venuesInfo, setVenuesInfo] = useState(false);
     useEffect(() => {
