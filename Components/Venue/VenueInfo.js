@@ -9,9 +9,10 @@ import Loading from '../Common/Loading';
 import VenueTitle from './VenueTitle';
 // import modules
 import parsePerformances from '../../Modules/parsePerformances';
-import { venueImagePath } from '../../Modules/paths';
+import { venueImagePath, venueLogoPath } from '../../Modules/paths';
 import { baseStyles } from '../../Styles/baseStyles';
 import { venueStyles } from '../../Styles/venueStyles';
+import { cacheImages } from '../../Modules/prepare';
 
 /**
  * @function VenueInfo :
@@ -22,6 +23,15 @@ import { venueStyles } from '../../Styles/venueStyles';
 export default function VenueInfo({ route, navigation }) {
     const [venueInfo, setVenueInfo] = useState(false);
     const [performances, setPerformances] = useState(false);
+
+    async function processVenue(venue) {
+        let images = [];
+        if (venue.VenueImg) images.push(`${venueImagePath}${venue.VenueImg}`);
+        if (venue.VenueLogo) images.push(`${venueLogoPath}${venue.VenueLogo}`);
+        await cacheImages(images);
+        setVenueInfo(venue);
+    }
+
     useEffect(() => {
         (async() => {
             // get local data for venues and performances
@@ -31,12 +41,11 @@ export default function VenueInfo({ route, navigation }) {
             // get data for just this venue
             const venueData = JSON.parse(values[0])
                 .filter(venue=> venue.Name === route.params.venue.Name);
-            setVenueInfo(venueData[0]);
+            processVenue(venueData[0])
             // get performances for just this venue, and sort in ascending chronological order
             setPerformances(parsePerformances(values[1], route.params.venue.Name));
         })();
     }, [route.params.venue.Name]);
-
     if (!venueInfo || !performances) {
         return (
             <Loading />

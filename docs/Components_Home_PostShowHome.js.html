@@ -38,32 +38,36 @@ import { baseStyles } from '../../Styles/baseStyles';
  * React Native component to display post-show information screen
  * @returns {Component}
  */
-export function PostShowHome() {
+export default function PostShowHome(props) {
+    const navigation = props.navigation ? props.navigation : null;
     return (
-        &lt;ScreenWrapper>
-        &lt;View style={baseStyles.contentContainer}>
-            &lt;OTLogo />
-            &lt;View style={baseStyles.textContainer}>
-                &lt;Text style={baseStyles.stdText}>
-                    Outer Town 2022 has already gone! Sign up to our mailing list to make sure you get all the news about our bigger and better plans for the 2023 festival the moment they happen. Thanks for supporting a small indie festival like us, it means a lot!
-                &lt;/Text>
-                &lt;Text style={baseStyles.callToActionText}>
-                    Cluny and Harry
-                &lt;/Text>
-                &lt;LinkWrapper
-                url={"https://mailchi.mp/cf59187e2145/outer-town"}
-                linkComponent={
-                    &lt;View style = {{width: '100%', marginTop: '5%'}}>
-                        &lt;View style={baseStyles.callToActionButton}>
-                            &lt;Text style={baseStyles.callToActionText}>
-                                Sign up for the mailing list! &amp;gt;&amp;gt;&amp;gt;
-                            &lt;/Text>
+        &lt;ScreenWrapper
+            navigation={navigation}
+        >
+            &lt;View style={baseStyles.contentContainer}>
+                &lt;OTLogo />
+                &lt;View style={baseStyles.textContainer}>
+                    &lt;Text style={baseStyles.stdText}>
+                        Outer Town 2022 has already gone! Sign up to our mailing list to make sure you get all the news about our bigger and better plans for the 2023 festival the moment they happen. Thanks for supporting a small indie festival like us, it means a lot!
+                    &lt;/Text>
+                    &lt;Text style={baseStyles.callToActionText}>
+                        Cluny and Harry
+                    &lt;/Text>
+                    &lt;LinkWrapper
+                        accessible={true}
+                        url={"https://mailchi.mp/cf59187e2145/outer-town"}
+                        linkComponent={
+                        &lt;View style = {{width: '100%', marginTop: '5%'}}>
+                            &lt;View style={baseStyles.callToActionButton}>
+                                &lt;Text style={baseStyles.callToActionText}>
+                                    Sign up for the mailing list! &amp;gt;&amp;gt;&amp;gt;
+                                &lt;/Text>
+                            &lt;/View>
                         &lt;/View>
-                    &lt;/View>
-                }
-                />
+                    }
+                    />
+                &lt;/View>
             &lt;/View>
-        &lt;/View>
         &lt;/ScreenWrapper>
     )
 }</code></pre>
@@ -79,8 +83,7 @@ export function PostShowHome() {
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="paths%2520_%2520%250AURL%2520paths%2520used%2520in%2520other%2520scriptsmodule_.html">paths : 
 URL paths used in other scripts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AllPerformanceHeader:ReactNativecomponentfordisplayinganinformationheaderfortheperformancesmodal">AllPerformanceHeader : 
 React Native component for displaying an information header for the performances modal</a></li><li><a href="global.html#AllPerformances:ReactNativecomponentfordisplayingalistofallperformances">AllPerformances : 
-React Native component for displaying a list of all performances</a></li><li><a href="global.html#App:Mainreactnativeapp">App : 
-Main react native app</a></li><li><a href="global.html#BandInfo:ReactNativecomponentforshowinginformationaboutaband">BandInfo :
+React Native component for displaying a list of all performances</a></li><li><a href="global.html#BandInfo:ReactNativecomponentforshowinginformationaboutaband">BandInfo :
 React Native component for showing information about a band</a></li><li><a href="global.html#getBandInfo:Retrievebandinfofromlocalstorage">getBandInfo : 
 Retrieve band info from local storage</a></li><li><a href="global.html#getBandPerformance:Retrieveperformance(s)byabandfromlocalstorage">getBandPerformance : 
 Retrieve performance(s) by a band from local storage</a></li><li><a href="global.html#getLiked:Retrievelikedstatusofbandfromlocalstorage">getLiked : 
@@ -89,7 +92,8 @@ Sets up notifications and feedback on a band liked by a user</a></li><li><a href
 Opens modal when left screen swipe detected
 https://dev.to/nrymarz/creating-a-tinder-style-swiping-component-with-react-native-part-1-2-h45</a></li><li><a href="global.html#HideAllPerformances:ReactNativecomponentfordisplayingabuttontoclosetheperformancesmodal">HideAllPerformances : 
 React Native component for displaying a button to close the performances modal</a></li><li><a href="global.html#HomeScreen:ReactNativecomponenttodisplayapplicationhomescreen">HomeScreen : 
-React Native component to display application home screen</a></li><li><a href="global.html#LinkWrapper:ReactNativecomponentfordisplayingahyperlinkedchilecomponent">LinkWrapper : 
+React Native component to display application home screen</a></li><li><a href="global.html#ItemLoading:ReactNativecomponentfordisplayinganimatedscreenwhiledataisloadingasynchronously">ItemLoading : 
+React Native component for displaying animated screen while data is loading asynchronously</a></li><li><a href="global.html#LinkWrapper:ReactNativecomponentfordisplayingahyperlinkedchilecomponent">LinkWrapper : 
 React Native component for displaying a hyperlinked chile component</a></li><li><a href="global.html#Loading:ReactNativecomponentfordisplayinganimatedscreenwhiledataisloadingasynchronously">Loading : 
 React Native component for displaying animated screen while data is loading asynchronously</a></li><li><a href="global.html#NoData:ReactNativecomponentfordisplayingcontentwhenthereisnointernetconnectionandnolocallystoreddata">NoData : 
 React Native component for displaying content when there is no internet connection and no locally stored data</a></li><li><a href="global.html#OTLogo:ReactNativecomponentfordisplayingfestivallogo">OTLogo : 
@@ -109,7 +113,7 @@ React Native component for displaying a venue title or logo</a></li></ul>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Feb 01 2022 11:03:14 GMT+0000 (Greenwich Mean Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Feb 11 2022 13:20:22 GMT+0000 (Greenwich Mean Time)
 </footer>
 
 <script> prettyPrint(); </script>

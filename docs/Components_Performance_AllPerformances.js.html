@@ -31,6 +31,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SearchBar } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // load components
@@ -40,6 +41,7 @@ import AllPerformanceHeader from './AllPerformanceHeader';
 import HideAllPerformances from './HideAllPerformances';
 // load modules
 import parsePerformances from '../../Modules/parsePerformances';
+import { baseStyles } from '../../Styles/baseStyles';
 
 /**
  * @function AllPerformances : 
@@ -50,15 +52,30 @@ import parsePerformances from '../../Modules/parsePerformances';
 export default function AllPerformances(props) {
     const [showModal, setShowModal] = useState(props.showAllPerformances);
     const [performances, setPerformances] = useState(false);
-
+    const [allPerformances, setAllPerformances] = useState(false);
+    const [search, setSearch] = useState('');
+    const [scrollEnabled, setScrollEnabled] = useState(true);
+    const [deactivatePressables, setDeactivatePressables] = useState(false);
     const navigation = useNavigation();
 
+    function updateSearch(search) {
+        const re = new RegExp(search, 'i');
+        setPerformances(allPerformances.filter(performance => {
+            return re.test(performance.Band);
+        }));
+        setSearch(search);
+    }
+
     function swipeCancelled(e) {
+        setScrollEnabled(true);
+        setDeactivatePressables(false);
         props.setShowAllPerformances(true);
         setShowModal(true);
     }
 
     const toggleModal = () => {
+        setScrollEnabled(true);
+        setDeactivatePressables(false);
         props.setShowAllPerformances(false);
         setShowModal(false);
     };
@@ -67,8 +84,10 @@ export default function AllPerformances(props) {
         (async() => {
             // get venue data from local storage
             // TODO filter performances to only those whose end time is after now
-            const localPerformancesData = await AsyncStorage.getItem('@performancesData');
-            setPerformances(parsePerformances(localPerformancesData));
+            let localPerformancesData = await AsyncStorage.getItem('@performancesData');
+            localPerformancesData = parsePerformances(localPerformancesData);
+            setPerformances(localPerformancesData);
+            setAllPerformances(localPerformancesData);
         })();
     }, []);
 
@@ -79,15 +98,25 @@ export default function AllPerformances(props) {
     // build schedule
     let performanceSchedule;
     if (!performances)
-        performanceSchedule = &lt;Loading />;
-    else if (performances.length === 0)
-        return null
-    else {
+        return &lt;Loading />;
+    else if (performances.length === 0) {
+        performanceSchedule = &lt;Performance
+            performance={{
+                Band: 'No bands fit the search',
+                Stage: '',
+                StartSting: '',
+                EndString: '',
+            }}
+            toggleModal={null}
+            key={1}
+        />
+    } else {
         performanceSchedule = performances.map((performance)=>&lt;Performance
                 navigation={navigation}
                 performance={performance}
                 toggleModal={toggleModal}
                 key={performance.Id}
+                deactivatePressables={deactivatePressables}
             />)
     }
     return (
@@ -96,6 +125,10 @@ export default function AllPerformances(props) {
             animationIn={'slideInRight'}
             animationOut={'slideOutRight'}
             swipeDirection='right'
+            onSwipeStart={()=>{
+                setScrollEnabled(false);
+                setDeactivatePressables(true);
+            }}
             onSwipeCancel={swipeCancelled}
             onSwipeComplete={toggleModal}
             swipeThreshold={155}
@@ -103,13 +136,32 @@ export default function AllPerformances(props) {
             backdropOpacity={0.9}
             onBackButtonPress={toggleModal}
             style={{zIndex: 1}}
+            accessibilityActions={[{ name: 'activate', label: 'View or hide full gig schedule' }]}
+            onAccessibilityAction={({ nativeEvent }) => {
+                if (nativeEvent.actionName === 'activate') {
+                    setShowAllPerformances(!props.showAllPerformances)
+                    setShowModal(!showModal)
+                }
+            }}
         >
-            &lt;ScrollView>
+            &lt;ScrollView
+                contentContainerStyle={{zIndex:0}}
+                scrollEnabled={scrollEnabled}
+            >
                 &lt;SafeAreaView>
+                    &lt;SearchBar
+                        placeholder='Search bands...'
+                        onChangeText={updateSearch}
+                        value={search}
+                        containerStyle={{backgroundColor: 'transparent'}}
+                        inputContainerStyle={{backgroundColor: '#ffffff'}}
+                        inputStyle={baseStyles.stdText}
+                    />
                     &lt;AllPerformanceHeader />
                     {performanceSchedule}
                     &lt;HideAllPerformances
                         toggleModal={toggleModal}
+                        deactivatePressables={deactivatePressables}
                     />
                 &lt;/SafeAreaView>
             &lt;/ScrollView>
@@ -128,8 +180,7 @@ export default function AllPerformances(props) {
     <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="paths%2520_%2520%250AURL%2520paths%2520used%2520in%2520other%2520scriptsmodule_.html">paths : 
 URL paths used in other scripts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AllPerformanceHeader:ReactNativecomponentfordisplayinganinformationheaderfortheperformancesmodal">AllPerformanceHeader : 
 React Native component for displaying an information header for the performances modal</a></li><li><a href="global.html#AllPerformances:ReactNativecomponentfordisplayingalistofallperformances">AllPerformances : 
-React Native component for displaying a list of all performances</a></li><li><a href="global.html#App:Mainreactnativeapp">App : 
-Main react native app</a></li><li><a href="global.html#BandInfo:ReactNativecomponentforshowinginformationaboutaband">BandInfo :
+React Native component for displaying a list of all performances</a></li><li><a href="global.html#BandInfo:ReactNativecomponentforshowinginformationaboutaband">BandInfo :
 React Native component for showing information about a band</a></li><li><a href="global.html#getBandInfo:Retrievebandinfofromlocalstorage">getBandInfo : 
 Retrieve band info from local storage</a></li><li><a href="global.html#getBandPerformance:Retrieveperformance(s)byabandfromlocalstorage">getBandPerformance : 
 Retrieve performance(s) by a band from local storage</a></li><li><a href="global.html#getLiked:Retrievelikedstatusofbandfromlocalstorage">getLiked : 
@@ -138,7 +189,8 @@ Sets up notifications and feedback on a band liked by a user</a></li><li><a href
 Opens modal when left screen swipe detected
 https://dev.to/nrymarz/creating-a-tinder-style-swiping-component-with-react-native-part-1-2-h45</a></li><li><a href="global.html#HideAllPerformances:ReactNativecomponentfordisplayingabuttontoclosetheperformancesmodal">HideAllPerformances : 
 React Native component for displaying a button to close the performances modal</a></li><li><a href="global.html#HomeScreen:ReactNativecomponenttodisplayapplicationhomescreen">HomeScreen : 
-React Native component to display application home screen</a></li><li><a href="global.html#LinkWrapper:ReactNativecomponentfordisplayingahyperlinkedchilecomponent">LinkWrapper : 
+React Native component to display application home screen</a></li><li><a href="global.html#ItemLoading:ReactNativecomponentfordisplayinganimatedscreenwhiledataisloadingasynchronously">ItemLoading : 
+React Native component for displaying animated screen while data is loading asynchronously</a></li><li><a href="global.html#LinkWrapper:ReactNativecomponentfordisplayingahyperlinkedchilecomponent">LinkWrapper : 
 React Native component for displaying a hyperlinked chile component</a></li><li><a href="global.html#Loading:ReactNativecomponentfordisplayinganimatedscreenwhiledataisloadingasynchronously">Loading : 
 React Native component for displaying animated screen while data is loading asynchronously</a></li><li><a href="global.html#NoData:ReactNativecomponentfordisplayingcontentwhenthereisnointernetconnectionandnolocallystoreddata">NoData : 
 React Native component for displaying content when there is no internet connection and no locally stored data</a></li><li><a href="global.html#OTLogo:ReactNativecomponentfordisplayingfestivallogo">OTLogo : 
@@ -158,7 +210,7 @@ React Native component for displaying a venue title or logo</a></li></ul>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Feb 01 2022 11:03:14 GMT+0000 (Greenwich Mean Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Feb 11 2022 13:20:22 GMT+0000 (Greenwich Mean Time)
 </footer>
 
 <script> prettyPrint(); </script>

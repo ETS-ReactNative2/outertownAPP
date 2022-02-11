@@ -27,18 +27,20 @@ export default function BandInfo({route, navigation}) {
     const [bandLiked, setBandLiked] = useState(false);
     const [buttonBusy, setButtonBusy] = useState(false);
 
+    async function processBand(band) {
+        let images = [];
+        if (bandInfo.BandImg) images.push(`${bandImagePath}${bandInfo.BandImg}`);
+        if (bandInfo.BandLogo) images.push(`${bandLogoPath}${bandInfo.BandLogo}`);
+        await cacheImages(images)
+        setBandInfo(band);
+    }
+
     useEffect(() => {
         (async() => {
             const bandInfo = await getBandInfo(route.params.band);
-            const images = [];
-            setBandInfo(bandInfo);
-            if (bandInfo.BandImg)
-                images.push(`${bandImagePath}${bandInfo.BandImg}`);
-            if (bandInfo.BandLogo)
-                images.push(`${bandLogoPath}${bandInfo.BandLogo}`);
-            await cacheImages(images);
+            processBand(bandInfo);
             setBandPerformance(await getBandPerformance(route.params.band));
-            setBandLiked(await getLiked(route.params.band));
+            setBandLiked(getLiked(route.params.band));
         })();
     }, [route.params.band]);
 
@@ -140,7 +142,7 @@ export default function BandInfo({route, navigation}) {
     </View>
 
     let likeButtonStyle = null;
-    let likeButtonText = 'Like!';
+    let likeButtonText = 'Like';
     let likeInfoText = 'Be notified when their show is about to start.';
 
     if (bandLiked) {

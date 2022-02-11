@@ -65,7 +65,7 @@ export default function HomeScreen({route, navigation}) {
                     linkComponent={
                         <View style={baseStyles.callToActionButton}>
                             <Text style={baseStyles.callToActionText}>
-                                Tickets &gt;&gt;&gt;
+                                Tickets
                             </Text>
                         </View>
                     }
@@ -73,7 +73,6 @@ export default function HomeScreen({route, navigation}) {
             </View>
         )
     }
-
     // if we haven't got all the data yet, show the loading screen
     if (!venuesInfo) {
         return (

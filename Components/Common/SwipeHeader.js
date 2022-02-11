@@ -12,7 +12,7 @@ export default function SwipeHeader(props) {
     return (
         <View style={baseStyles.header}>
             <Text style={baseStyles.headerText}>
-                Swipe left to to see full gig schedule &lt;&lt;&lt;
+                Swipe left to to see full gig schedule
             </Text>
         </View>
     )
