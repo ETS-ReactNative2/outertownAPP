@@ -16,28 +16,33 @@ export default function VenueList(props) {
     const venueInfo = props.venueInfo;
     const navigation = props.navigation;
     return (
-        <TouchableOpacity
-            accessible={true}
-            accessibilityLabel={`Navigate to information page for venue ${venueInfo.Name}`}
-            onPress={()=>{navigation.navigate('Venue Info', {
-                    venue: venueInfo,
-                })}
-            }
-        >
         <View
             style={venueStyles.venueListContainer}
         >
-            <VenueTitle
-                venue={venueInfo}
-            />
-
-            <Image
+            <TouchableOpacity
                 accessible={true}
-                accessibilityLabel={`Image of venue ${venueInfo.Name}`}
-                style={venueStyles.venueListImage}
-                source={{uri: venueImagePath+venueInfo.VenueImg}}
-            />
+                accessibilityLabel={`Navigate to information page for venue ${venueInfo.Name}`}
+                onPress={()=>{navigation.navigate('Venue Info', {
+                        venue: venueInfo,
+                    })}
+                }
+            >
+                <View
+                    style={venueStyles.venueItemContainer}
+                >
+
+                <VenueTitle
+                    venue={venueInfo}
+                />
+
+                <Image
+                    accessible={true}
+                    accessibilityLabel={`Image of venue ${venueInfo.Name}`}
+                    style={venueStyles.venueListImage}
+                    source={{uri: venueImagePath+venueInfo.VenueImg}}
+                />
+                </View>
+            </TouchableOpacity>
         </View>
-        </TouchableOpacity>
     );
 }

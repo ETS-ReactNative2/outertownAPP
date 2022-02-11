@@ -2,6 +2,7 @@
 import React, { useEffect, useState }  from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notifications from 'expo-notifications';
@@ -52,6 +53,7 @@ const App = () => {
     KaiseiTokumin
   });
   useEffect(async() => {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     const prepareResult = await prepare();
     if (prepareResult === null) {
       setAppIsReady(true);

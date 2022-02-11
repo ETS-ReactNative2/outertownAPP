@@ -15,6 +15,14 @@ export const venueStyles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: '0.8%',
   },
+  venueItemContainer: {
+    width: 'auto',
+    minWidth: '82%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    margin: 0
+  },
   venueTitleContainer: {
     width: '100%',
     flexDirection: 'row',

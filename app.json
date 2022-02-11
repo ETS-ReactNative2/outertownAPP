@@ -1,21 +1,35 @@
 {
   "expo": {
-    "name": "outertownAPP",
+    "name": "Outer Town Fest",
+    "description": "Everything you need to know about Bristol's Outer Town Fest 2022",
     "slug": "outertownAPP",
     "version": "1.0.0",
     "orientation": "portrait",
+    "backgroundColor": "#f4f4ec",
     "icon": "./assets/graphics/icon.png",
+    "notification": {
+      "iosDisplayInForeground": true
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
     "splash": {
       "image": "./assets/graphics/header-bldgs.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f4f4ec"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "requireFullScreen": true,
+      "backgroundColor": "#f4f4ec",
+      "icon": "./assets/graphics/icon.png",
+      "userInterfaceStyle": "dark"
     },
     "android": {
       "adaptiveIcon": {

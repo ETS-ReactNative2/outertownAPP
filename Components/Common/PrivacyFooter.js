@@ -7,18 +7,9 @@ export default function PrivacyFooter(props) {
     const [pressOpacity, setPressOpacity] = useState(1);
     return (
         <Pressable
-            style={{
-                position: 'absolute',
-                bottom: -30,
-                left: 0,
-                height: 30,
-                width: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                padding: 5,
+            style={[baseStyles.privacy, {
                 opacity: pressOpacity,
-            }}
+            }]}
             onPressIn={()=>{
                 setPressOpacity(0.5)
             }}

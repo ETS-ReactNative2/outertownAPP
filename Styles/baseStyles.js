@@ -5,9 +5,9 @@ const screenHeight = Dimensions.get("window").height;
 
 export const baseStyles = StyleSheet.create({
     container: {
+      backgroundColor: '#f4f4ec',
       flex: 1,
       width: '100%',
-      backgroundColor: '#f4f4ec',
       alignItems: 'center',
       justifyContent: 'flex-start',
       position: 'relative',
@@ -15,13 +15,12 @@ export const baseStyles = StyleSheet.create({
     },
     content: {
       width: '100%',
-      minHeight: screenHeight,
     },
     contentContainer: {
       flex: 1,
       width: '100%',
       justifyContent: 'flex-start',
-      paddingBottom: 40, // extra padding so there's always some scroll space
+      paddingBottom: 50, // extra padding so there's always some scroll space
     },
     stdTitle: {
       fontFamily: 'InterBold',
@@ -52,7 +51,7 @@ export const baseStyles = StyleSheet.create({
       padding: '1%',
     },
     callToActionTickets: {
-      top: '-15%', // covers up transition from logo to background road
+      top: '-8%', // covers up transition from logo to background road
     },
     callToActionButton: {
       flex: 1,
@@ -90,6 +89,18 @@ export const baseStyles = StyleSheet.create({
       alignItems: 'center',
       padding: '2%',
       backgroundColor: '#e4bf49'
+    },
+    privacy: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      height: 50,
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      padding: 5,
+
     }
 
 })

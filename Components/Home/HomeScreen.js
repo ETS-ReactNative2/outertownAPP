@@ -57,20 +57,20 @@ export default function HomeScreen({route, navigation}) {
     let buyTickets;
     if (today < festivalDayStart) {
         buyTickets = (
-            <LinkWrapper
-                accessible={true}
-                accessibilityLabel={`External link to buy tickets for Outer Town Festival`}
-                url={"https://www.gigantic.com/outer-town-festival-tickets/bristol-various-bristol-venues/2022-04-10-14-30"}
-                linkComponent={
-                <View style={[baseStyles.callToActionContainer, baseStyles.callToActionTickets]}>
-                    <View style={baseStyles.callToActionButton}>
-                        <Text style={baseStyles.callToActionText}>
-                            Tickets &gt;&gt;&gt;
-                        </Text>
-                    </View>
-                </View>
-                }
-            />
+            <View style={[baseStyles.callToActionContainer, baseStyles.callToActionTickets]}>
+                <LinkWrapper
+                    accessible={true}
+                    accessibilityLabel={`External link to buy tickets for Outer Town Festival`}
+                    url={"https://www.gigantic.com/outer-town-festival-tickets/bristol-various-bristol-venues/2022-04-10-14-30"}
+                    linkComponent={
+                        <View style={baseStyles.callToActionButton}>
+                            <Text style={baseStyles.callToActionText}>
+                                Tickets &gt;&gt;&gt;
+                            </Text>
+                        </View>
+                    }
+                />
+            </View>
         )
     }
 
@@ -86,8 +86,10 @@ export default function HomeScreen({route, navigation}) {
             navigation={navigation}
         >
             <View style={baseStyles.contentContainer}>
-                <OTLogo />
-                {buyTickets}
+                <View>
+                    <OTLogo />
+                    {buyTickets}
+                </View>
                 <View style={venueStyles.venueListContainer}>
                     <Text style={baseStyles.stdTitle}>
                         Participating Venues

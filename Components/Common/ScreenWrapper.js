@@ -69,11 +69,11 @@ export default function ScreenWrapper(props) {
                             setShowAllPerformances={setShowAllPerformances}
                         />
                         {props.children}
-                        <PrivacyFooter
-                            navigation={navigation}
-                        />
                     </ImageBackground>
                 </PageContainer>
+                <PrivacyFooter
+                    navigation={navigation}
+                />
             </ScrollView>
         </PanGestureHandler>
     )
