@@ -40,7 +40,7 @@ export default function BandInfo({route, navigation}) {
             const bandInfo = await getBandInfo(route.params.band);
             processBand(bandInfo);
             setBandPerformance(await getBandPerformance(route.params.band));
-            setBandLiked(getLiked(route.params.band));
+            setBandLiked(await getLiked(route.params.band));
         })();
     }, [route.params.band]);
 
