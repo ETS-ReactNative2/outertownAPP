@@ -6,6 +6,8 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notifications from 'expo-notifications';
+import * as Location from 'expo-location';
+import * as haversine from 'haversine';
 // import used google fonts
 import { useFonts, KoHo_400Regular as KoHo, KoHo_600SemiBold as KoHoBold } from '@expo-google-fonts/koho';
 import { Inter_400Regular as Inter, Inter_800ExtraBold as InterBold } from '@expo-google-fonts/inter';
@@ -33,9 +35,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-// TODO async loading of assets - make sure it's actually happening
-// TODO unit testing?
-
 /**
  * @function App : 
  * Main react native app
@@ -44,6 +43,8 @@ Notifications.setNotificationHandler({
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
   const [dataAvailable, setDataAvailable] = useState(false);
+  const [location, setLocation] = useState(null);
+
   let [fontsLoaded] = useFonts({
     KoHo, KoHoBold,
     Inter, InterBold,
@@ -62,12 +63,16 @@ const App = () => {
       setAppIsReady(true);
       await SplashScreen.hideAsync();
     }
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status === 'granted') {
+      setLocation(await Location.getCurrentPositionAsync({accuracy: 3}));
+    }
   }, []);
-
+  
   if (!appIsReady || !fontsLoaded) {
     return null;
   }
-
+  
   if (!dataAvailable) {
     return (
       <NavigationContainer>
@@ -82,6 +87,7 @@ const App = () => {
       </NavigationContainer>
     )
   }
+  console.log(location);
   return (
     <NavigationContainer>
       <Stack.Navigator>
