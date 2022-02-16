@@ -50,7 +50,7 @@ export default function Loading() {
                         opacity: textFade,
                     }}
                 >
-                    <Text style={[baseStyles.stdTitle, {color: '#ffffff'}]}>
+                    <Text style={{color: '#ffffff'}}>
                         Loading...
                     </Text>
                 </Animated.View>

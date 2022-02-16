@@ -6,8 +6,6 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notifications from 'expo-notifications';
-import * as Location from 'expo-location';
-const haversine = require ('haversine');
 // import used google fonts
 import { useFonts, KoHo_400Regular as KoHo, KoHo_600SemiBold as KoHoBold } from '@expo-google-fonts/koho';
 import { Inter_400Regular as Inter, Inter_800ExtraBold as InterBold } from '@expo-google-fonts/inter';
@@ -21,8 +19,10 @@ import BandInfo from './Components/BandInfo';
 import VenueInfo from './Components/Venue/VenueInfo';
 import NoData from './Components/Common/NoData';
 import PrivacyPolicy from './Components/Privacy';
+import Loading from './Components/Common/Loading';
 // import functional modules
 import prepare from './Modules/prepare';
+import { getLocation } from './Modules/getLocation';
 
 const Stack = createStackNavigator();
 
@@ -35,36 +35,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const VENUE_LOCATIONS = [
-  {
-    name: "Exchange",
-    latitude: 51.45570370065201,
-    longitude: -2.5828368474797
-  },
-  {
-    name: "Glitch",
-    latitude: 51.456646324818784,
-    longitude: -2.580444317070724
-  },
-  {
-    name: "Elmer's Arms",
-    latitude: 51.456264496739244,
-    longitude: -2.5807564710397517
-  },
-  {
-    name: "Ill Repute",
-    latitude: 51.456626928265315,
-    longitude: -2.579172959398873
-  },
-  {
-    name: "Old Market Assembly",
-    latitude: 51.45694781729385,
-    longitude: -2.579044213367897
-  },
-]
-
-const LOCATION_THRESHOLD = 30;
-
 /**
  * @function App : 
  * Main react native app
@@ -73,7 +43,6 @@ const LOCATION_THRESHOLD = 30;
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
   const [dataAvailable, setDataAvailable] = useState(false);
-  const [location, setLocation] = useState(null);
 
   let [fontsLoaded] = useFonts({
     KoHo, KoHoBold,
@@ -84,21 +53,10 @@ const App = () => {
     KaiseiTokumin
   });
   useEffect(async() => {
-    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    
-    let geoloc = await Location.getLastKnownPositionAsync({requiredAccuracy: LOCATION_THRESHOLD});
-    if (geoloc) {
-      for (const venue_location of VENUE_LOCATIONS) {
-        if (status === 'granted') {
-          if (haversine(geoloc.coords, venue_location, {threshold: LOCATION_THRESHOLD, unit: 'meter'})) {
-            setLocation(venue_location);
-          }
-        }
-      }
-    }
-    const prepareResult = await prepare();
-    if (prepareResult === null) {
+    const screenLock = ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    const prepareResult = prepare();
+    const promiseResults = await Promise.all([screenLock, prepareResult]);
+    if (promiseResults[1] === null) {
       setAppIsReady(true);
     } else {
       setDataAvailable(true);
@@ -108,7 +66,7 @@ const App = () => {
   }, []);
   
   if (!appIsReady || !fontsLoaded) {
-    return null;
+    return <Loading />;
   }
   
   if (!dataAvailable) {
@@ -133,7 +91,6 @@ const App = () => {
           options={{headerShown: false}}
           component={HomeScreen}
           cardStyle={{height:'100%'}}
-          initialParams={{ location: location }}
         />
         <Stack.Screen
           name="Venue Info"
