@@ -1,5 +1,6 @@
 import * as Location from 'expo-location';
-const haversine = require ('haversine');
+import haversineDistance from './haversine';
+// const haversine = require ('haversine');
 
 const VENUE_LOCATIONS = [
     {
@@ -48,15 +49,20 @@ export async function getLocation() {
             .catch((e) => {
                 // location not totally necessary, so handle promise rejection gracefully and silently
                 console.log('promise rejected')
+                return false;
             });
         }
+        let minDist = LOCATION_THRESHOLD;
+        let minDistVenue = false;
         if (geoloc && androidStatus) {
             for (const venueLocation of VENUE_LOCATIONS) {
-                if (haversine(geoloc.coords, venueLocation, {threshold: LOCATION_THRESHOLD, unit: 'meter'})) {
-                    return venueLocation;
+                const distToVenue = haversineDistance(geoloc.coords, venueLocation)
+                if (distToVenue < LOCATION_THRESHOLD && distToVenue < minDist) {
+                    minDistVenue = venueLocation;
                 }
             }
         }
+        return minDistVenue;
     }
     return false; 
 }

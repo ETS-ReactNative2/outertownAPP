@@ -22,7 +22,6 @@ import PrivacyPolicy from './Components/Privacy';
 import Loading from './Components/Common/Loading';
 // import functional modules
 import prepare from './Modules/prepare';
-import { getLocation } from './Modules/getLocation';
 
 const Stack = createStackNavigator();
 
