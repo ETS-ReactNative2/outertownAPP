@@ -1,11 +1,14 @@
 {
-    "build": {
-      "preview": {
-        "ios": {
-          "simulator": true
-        }
-      },
-      "production": {}
-    }
+  "build": {
+    "preview": {
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {}
+  },
+  "cli": {
+    "version": ">= 0.47.0",
+    "requireCommit": true
   }
-  
+}
