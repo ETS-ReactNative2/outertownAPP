@@ -87,11 +87,13 @@ const App = () => {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     let { status } = await Location.requestForegroundPermissionsAsync();
     
-    const geoloc = await Location.getCurrentPositionAsync({accuracy: 3});
-    for (const venue_location of VENUE_LOCATIONS) {
-      if (status === 'granted') {
-        if (haversine(geoloc.coords, venue_location, {threshold: LOCATION_THRESHOLD, unit: 'meter'})) {
-          setLocation(venue_location);
+    let geoloc = await Location.getLastKnownPositionAsync({requiredAccuracy: LOCATION_THRESHOLD});
+    if (geoloc) {
+      for (const venue_location of VENUE_LOCATIONS) {
+        if (status === 'granted') {
+          if (haversine(geoloc.coords, venue_location, {threshold: LOCATION_THRESHOLD, unit: 'meter'})) {
+            setLocation(venue_location);
+          }
         }
       }
     }
