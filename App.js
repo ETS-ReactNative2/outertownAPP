@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notifications from 'expo-notifications';
 import * as Location from 'expo-location';
-import * as haversine from 'haversine';
+const haversine = require ('haversine');
 // import used google fonts
 import { useFonts, KoHo_400Regular as KoHo, KoHo_600SemiBold as KoHoBold } from '@expo-google-fonts/koho';
 import { Inter_400Regular as Inter, Inter_800ExtraBold as InterBold } from '@expo-google-fonts/inter';
@@ -35,6 +35,36 @@ Notifications.setNotificationHandler({
   }),
 });
 
+const VENUE_LOCATIONS = [
+  {
+    name: "Exchange",
+    latitude: 51.45570370065201,
+    longitude: -2.5828368474797
+  },
+  {
+    name: "Glitch",
+    latitude: 51.456646324818784,
+    longitude: -2.580444317070724
+  },
+  {
+    name: "Elmer's Arms",
+    latitude: 51.456264496739244,
+    longitude: -2.5807564710397517
+  },
+  {
+    name: "Ill Repute",
+    latitude: 51.456626928265315,
+    longitude: -2.579172959398873
+  },
+  {
+    name: "Old Market Assembly",
+    latitude: 51.45694781729385,
+    longitude: -2.579044213367897
+  },
+]
+
+const LOCATION_THRESHOLD = 30;
+
 /**
  * @function App : 
  * Main react native app
@@ -55,6 +85,16 @@ const App = () => {
   });
   useEffect(async() => {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    
+    const geoloc = await Location.getCurrentPositionAsync({accuracy: 3});
+    for (const venue_location of VENUE_LOCATIONS) {
+      if (status === 'granted') {
+        if (haversine(geoloc.coords, venue_location, {threshold: LOCATION_THRESHOLD, unit: 'meter'})) {
+          setLocation(venue_location);
+        }
+      }
+    }
     const prepareResult = await prepare();
     if (prepareResult === null) {
       setAppIsReady(true);
@@ -62,10 +102,6 @@ const App = () => {
       setDataAvailable(true);
       setAppIsReady(true);
       await SplashScreen.hideAsync();
-    }
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status === 'granted') {
-      setLocation(await Location.getCurrentPositionAsync({accuracy: 3}));
     }
   }, []);
   
@@ -87,7 +123,6 @@ const App = () => {
       </NavigationContainer>
     )
   }
-  console.log(location);
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -96,6 +131,7 @@ const App = () => {
           options={{headerShown: false}}
           component={HomeScreen}
           cardStyle={{height:'100%'}}
+          initialParams={{ location: location }}
         />
         <Stack.Screen
           name="Venue Info"

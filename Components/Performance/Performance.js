@@ -18,7 +18,7 @@ export default function Performance(props) {
     useEffect(() => {
         (async() => {
             const bandInfo = await getBandInfo(props.performance.Band);
-            setSecretBand(bandInfo.Secret == true);
+            setSecretBand(bandInfo?.Secret == true);
             setPerformanceReady(true);
         })()
     }, [])
@@ -27,6 +27,7 @@ export default function Performance(props) {
     const [secretBand, setSecretBand] = useState(false)
     const navigation = props.navigation ? props.navigation : null;
     const performance = props.performance;
+    if (!performance) return null;
     if (performance.Secret === "1") return null;
     const toggleModal = props.toggleModal ? props.toggleModal : false;
     const deactivatePressables = props.deactivatePressables ? props.deactivatePressables : false;

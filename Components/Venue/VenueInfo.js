@@ -8,7 +8,7 @@ import Performance from '../Performance/Performance';
 import Loading from '../Common/Loading';
 import VenueTitle from './VenueTitle';
 // import modules
-import parsePerformances from '../../Modules/parsePerformances';
+import { getPerformances } from '../../Modules/getPerformances';
 import { venueImagePath, venueLogoPath } from '../../Modules/paths';
 import { baseStyles } from '../../Styles/baseStyles';
 import { venueStyles } from '../../Styles/venueStyles';
@@ -36,14 +36,14 @@ export default function VenueInfo({ route, navigation }) {
         (async() => {
             // get local data for venues and performances
             const localVenuesData       = AsyncStorage.getItem('@venuesData');
-            const localPerformancesData = AsyncStorage.getItem('@performancesData');
+            // get performances for just this venue, and sort in ascending chronological order
+            const localPerformancesData = getPerformances(route.params.venue.Name);
             let values = await Promise.all([localVenuesData, localPerformancesData]);
             // get data for just this venue
             const venueData = JSON.parse(values[0])
-                .filter(venue=> venue.Name === route.params.venue.Name);
+                .filter(venue => venue.Name === route.params.venue.Name);
             processVenue(venueData[0])
-            // get performances for just this venue, and sort in ascending chronological order
-            setPerformances(parsePerformances(values[1], route.params.venue.Name));
+            setPerformances(values[1]);
         })();
     }, [route.params.venue.Name]);
     if (!venueInfo || !performances) {

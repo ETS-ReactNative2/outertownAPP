@@ -5,14 +5,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SearchBar } from 'react-native-elements';
 import Modal from 'react-native-modal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // load components
 import Loading from '../Common/Loading';
 import Performance from './Performance';
 import AllPerformanceHeader from './AllPerformanceHeader';
 import HideAllPerformances from './HideAllPerformances';
 // load modules
-import parsePerformances from '../../Modules/parsePerformances';
+import { getPerformances } from '../../Modules/getPerformances';
+// import parsePerformances from '../../Modules/parsePerformances';
 import { baseStyles } from '../../Styles/baseStyles';
 
 /**
@@ -56,8 +56,7 @@ export default function AllPerformances(props) {
         (async() => {
             // get venue data from local storage
             // TODO filter performances to only those whose end time is after now
-            let localPerformancesData = await AsyncStorage.getItem('@performancesData');
-            localPerformancesData = parsePerformances(localPerformancesData);
+            let localPerformancesData = await getPerformances();
             setPerformances(localPerformancesData);
             setAllPerformances(localPerformancesData);
         })();

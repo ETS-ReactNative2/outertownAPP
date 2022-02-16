@@ -9,9 +9,11 @@ import LinkWrapper from '../Common/LinkWrapper.js';
 import OTLogo from '../Common/OTLogo.js';
 import VenueList from '../Venue/VenueList.js'
 import PostShowHome from './PostShowHome.js';
+import Performance from '../Performance/Performance.js';
 // import modules
 import { cacheImages } from '../../Modules/prepare.js';
 import { venueImagePath, venueLogoPath } from '../../Modules/paths';
+import { getPerformances } from '../../Modules/getPerformances';
 // import styles
 import { baseStyles } from '../../Styles/baseStyles.js';
 import { venueStyles } from '../../Styles/venueStyles'
@@ -24,8 +26,16 @@ import { venueStyles } from '../../Styles/venueStyles'
  */
 export default function HomeScreen({route, navigation}) {
     const [venuesInfo, setVenuesInfo] = useState(false);
+    const [location, setLocation] = useState(false);
+    const [nextLocationPerformance, setNextLocationPerformance] = useState(false)
     useEffect(() => {
         (async() => {
+            if (route.params.location) {
+                const locationPerformances = await getPerformances(route.params.location.name);
+                if (locationPerformances[0])
+                    setNextLocationPerformance(locationPerformances[0]);
+                setLocation(route.params.location);
+            }
             // get venue data from local storage
             let localVenuesData = await AsyncStorage.getItem('@venuesData');
             localVenuesData = JSON.parse(localVenuesData)
@@ -73,6 +83,38 @@ export default function HomeScreen({route, navigation}) {
             </View>
         )
     }
+
+    // if the device is within 20 meters of any venue on the day of the gig, welcome them to the festival
+    let welcome;
+    let nextPerformance = (
+        <Text style = {baseStyles.stdText}>
+            No Performances Scheduled for {location.name}
+        </Text>
+    );
+    if ( nextLocationPerformance ) {
+        nextPerformance = (
+            <View>
+                <Text style = {baseStyles.stdText}>
+                    Next performance at {location.name}:
+                </Text>
+                <Performance
+                    performance = { nextLocationPerformance }
+                    navigation = { navigation }
+                />
+            </View>
+        )
+    }
+    if ((location && today >= festivalDayStart && today <= festivalDayEnd)) {
+        welcome = (
+            <View style = {[{flex: 1, width: '100%', marginBottom: 30}, baseStyles.textTitle]}>
+                <Text style = {baseStyles.stdTitle}>
+                    Welcome to Outer Town 2022
+                </Text>
+                { nextPerformance }
+            </View>
+        )
+    }
+
     // if we haven't got all the data yet, show the loading screen
     if (!venuesInfo) {
         return (
@@ -87,6 +129,7 @@ export default function HomeScreen({route, navigation}) {
             <View style={baseStyles.contentContainer}>
                 <View>
                     <OTLogo />
+                    {welcome}
                     {buyTickets}
                 </View>
                 <View style={venueStyles.venueListContainer}>

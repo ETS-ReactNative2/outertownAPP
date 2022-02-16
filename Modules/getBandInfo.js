@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getPerformances } from './getPerformances';
 import parsePerformances from './parsePerformances';
 
 /**
@@ -23,8 +24,7 @@ export async function getBandInfo(band) {
  * @returns {Object}
  */
 export async function getBandPerformance(band) {
-    let allPerformances = await AsyncStorage.getItem('@performancesData');
-    allPerformances = parsePerformances(allPerformances);
+    let allPerformances = await getPerformances();
     const bandPerformances = allPerformances.filter(performance=>performance.Band===band);
     return bandPerformances;
 }
