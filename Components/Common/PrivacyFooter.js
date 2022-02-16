@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { baseStyles } from '../../Styles/baseStyles';
 
+/**
+ * React Native component for displaying link to privacy policy
+ * @param {Object} props - passed properties
+ * @returns {Component}
+ */
 export default function PrivacyFooter(props) {
     const navigation = props.navigation ? props.navigation : null;
     const [pressOpacity, setPressOpacity] = useState(1);

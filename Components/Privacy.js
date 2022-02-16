@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { baseStyles } from '../Styles/baseStyles';
 
+/**
+ * React Native component to display the app privacy policy
+ * @returns {Component}
+ */
 export default function PrivacyPolicy() {
     return (
         <View style={baseStyles.container}>

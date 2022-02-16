@@ -12,7 +12,6 @@ import AllPerformanceHeader from './AllPerformanceHeader';
 import HideAllPerformances from './HideAllPerformances';
 // load modules
 import { getPerformances } from '../../Modules/getPerformances';
-// import parsePerformances from '../../Modules/parsePerformances';
 import { baseStyles } from '../../Styles/baseStyles';
 
 /**
@@ -55,7 +54,6 @@ export default function AllPerformances(props) {
     useEffect(() => {
         (async() => {
             // get venue data from local storage
-            // TODO filter performances to only those whose end time is after now
             let localPerformancesData = await getPerformances();
             setPerformances(localPerformancesData);
             setAllPerformances(localPerformancesData);
