@@ -1,6 +1,6 @@
 // import dependencies
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import components
 import ScreenWrapper from '../Common/ScreenWrapper.js';
@@ -11,7 +11,6 @@ import VenueList from '../Venue/VenueList.js'
 import PostShowHome from './PostShowHome.js';
 import Performance from '../Performance/Performance.js';
 // import modules
-import { cacheImages } from '../../Modules/prepare.js';
 import { venueImagePath, venueLogoPath } from '../../Modules/paths';
 import { getPerformances } from '../../Modules/getPerformances';
 // import styles
@@ -46,8 +45,10 @@ export default function HomeScreen({route, navigation}) {
                 if (venue.VenueLogo)
                 images.push(`${venueLogoPath}${venue.VenueLogo}`);
             }
-            await cacheImages(images)
-            .then(res=>setVenuesInfo(localVenuesData));
+            for (let image of images) {
+                await Image.prefetch(image);
+            }
+            setVenuesInfo(localVenuesData);
         })();
     }, []);
 

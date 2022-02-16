@@ -7,10 +7,16 @@ import parsePerformances from "./parsePerformances";
  * @returns {Array}
  */
 export async function getPerformances(filterVenue = false) {
-    let localPerformancesData = await AsyncStorage.getItem('@performancesData');
-    localPerformancesData =  parsePerformances(localPerformancesData, filterVenue);
-    // only show performances that haven't yet finished
-    const now = Date.now();
-    localPerformancesData = localPerformancesData.filter(performance => Date.parse(performance.End) > now);
-    return localPerformancesData;
+    try {
+
+        let localPerformancesData = await AsyncStorage.getItem('@performancesData');
+        localPerformancesData =  parsePerformances(localPerformancesData, filterVenue);
+        // only show performances that haven't yet finished
+        const now = Date.now();
+        localPerformancesData = localPerformancesData.filter(performance => Date.parse(performance.End) > now);
+        return localPerformancesData;
+    }
+    catch (e) {
+        return [];
+    }
 }

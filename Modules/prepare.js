@@ -75,6 +75,10 @@ export default async function prepare() {
 					AsyncStorage.setItem('@venuesData', JSON.stringify(data));
 					return data;
 				})
+        .catch((err)=>{
+          // return null if there's an error getting the data and there's no local version
+          if (!localVersion) return null;
+        })
       }
       if (bandsData === null || updateData) {
 				bandsData = fetch('https://outertownfest.com/api/bands.php', {headers: {
@@ -85,6 +89,10 @@ export default async function prepare() {
 					AsyncStorage.setItem('@bandsData', JSON.stringify(data));
 					return data;
 				})
+        .catch((err)=>{
+          // return null if there's an error getting the data and there's no local version
+          if (!localVersion) return null;
+        })
       }
       if (performancesData === null || updateData) {
 				performancesData    = fetch('https://outertownfest.com/api/performances.php', {headers: {
@@ -97,6 +105,10 @@ export default async function prepare() {
           AsyncStorage.setItem('@performancesData', JSON.stringify(data));
 					return data;
 				})
+        .catch((err)=>{
+          // return null if there's an error getting the data and there's no local version
+          if (!localVersion) return null;
+        })
       }
       const appData = await Promise.all([venuesData, bandsData, performancesData]);
       return appData;
@@ -106,9 +118,4 @@ export default async function prepare() {
       return null;
     }
   }
-
-export async function cacheImages(images) {
-    return images.map(image => {
-        return Image.prefetch(image);
-    })
-}
+  

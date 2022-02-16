@@ -12,7 +12,6 @@ import { getPerformances } from '../../Modules/getPerformances';
 import { venueImagePath, venueLogoPath } from '../../Modules/paths';
 import { baseStyles } from '../../Styles/baseStyles';
 import { venueStyles } from '../../Styles/venueStyles';
-import { cacheImages } from '../../Modules/prepare';
 
 /**
  * @function VenueInfo :
@@ -28,7 +27,9 @@ export default function VenueInfo({ route, navigation }) {
         let images = [];
         if (venue.VenueImg) images.push(`${venueImagePath}${venue.VenueImg}`);
         if (venue.VenueLogo) images.push(`${venueLogoPath}${venue.VenueLogo}`);
-        await cacheImages(images);
+        for (let image of images) {
+            await Image.prefetch(image);
+        }
         setVenueInfo(venue);
     }
 
