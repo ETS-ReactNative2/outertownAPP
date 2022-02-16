@@ -21,6 +21,7 @@ export default function PrivacyPolicy() {
                         - a token from your phone so we can send you notifications when a band you have liked is about to play{`\n\n`}
                         This is transmitted to our server and stored securely until the notification is sent, at which point it is deleted. We store which bands have been liked, but completely anonymously.{`\n\n`}
                         We may ask for permission to know your GPS coordinates so we can greet you when you arrive at the festival via a notification using the same token, but no information about where you are leaves your phone or is shared with us.{`\n\n`}
+                        This is app is built with Expo, and that tool may request your Android Advertising ID, thought this code may not end up being executed. Find out more at https://expo.dev/privacy-explained{`\n\n`}
                         Feel free to get in touch with any concerns: outertownfest@gmail.com
                     </Text>
                 </View>

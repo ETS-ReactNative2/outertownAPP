@@ -5,6 +5,7 @@
     "slug": "outertownAPP",
     "version": "1.0.0",
     "orientation": "portrait",
+    "privacy": "public",
     "backgroundColor": "#f4f4ec",
     "icon": "./assets/graphics/icon.png",
     "notification": {
@@ -25,6 +26,8 @@
       "assets/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.nigelpowell.outertownapp",
+      "buildNumber": "1.0.0",
       "supportsTablet": false,
       "requireFullScreen": true,
       "backgroundColor": "#f4f4ec",
@@ -32,10 +35,16 @@
       "userInterfaceStyle": "dark"
     },
     "android": {
+      "package": "com.nigelpowell.outertownapp",
+      "versionCode": 1,
+      "icon": "./assets/graphics/icon.png",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/graphics/favicons/android-chrome-192x192.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/graphics/iconAdaptiveForeground.png",
+        "backgroundColor": "#f4f4ec"
+      },
+      "permissions" : [
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/graphics/favicons/favicon.ico"
