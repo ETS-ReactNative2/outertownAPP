@@ -3,7 +3,7 @@
     "name": "Outer Town Fest",
     "description": "Everything you need to know about Bristol's Outer Town Fest 2022",
     "slug": "outertownAPP",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "privacy": "public",
     "backgroundColor": "#f4f4ec",
@@ -27,12 +27,15 @@
     ],
     "ios": {
       "bundleIdentifier": "com.nigelpowell.outertownapp",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.1",
       "supportsTablet": false,
       "requireFullScreen": true,
       "backgroundColor": "#f4f4ec",
       "icon": "./assets/graphics/icon.png",
-      "userInterfaceStyle": "dark"
+      "userInterfaceStyle": "dark",
+      "infoPlist": {
+        "NSLocationUsageDescription": "This app uses your location to welcome you to the festival if you are within 30 metres of any of the participating venues on 10th April 2022, and inform you of the next performance taking place in the venue closest to you."
+      }
     },
     "android": {
       "package": "com.nigelpowell.outertownapp",
