@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 settings.json
 .vscode/
+.VSCodeCounter/
 
 # macOS
 .DS_Store
