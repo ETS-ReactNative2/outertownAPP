@@ -1,6 +1,5 @@
 import * as Location from 'expo-location';
 import haversineDistance from './haversine';
-// const haversine = require ('haversine');
 
 const VENUE_LOCATIONS = [
     {

@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getPerformances } from './getPerformances';
-import parsePerformances from './parsePerformances';
 
 /**
  * @function getBandInfo : 
