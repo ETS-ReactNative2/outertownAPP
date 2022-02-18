@@ -26,4 +26,4 @@ export default function LinkWrapper({ url, linkComponent, buttonText }) {
   onPress={handlePress}>
     {linkComponent}
   </TouchableOpacity>
-};
+}

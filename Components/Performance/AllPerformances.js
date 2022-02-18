@@ -108,7 +108,7 @@ export default function AllPerformances(props) {
             accessibilityActions={[{ name: 'activate', label: 'View or hide full gig schedule' }]}
             onAccessibilityAction={({ nativeEvent }) => {
                 if (nativeEvent.actionName === 'activate') {
-                    setShowAllPerformances(!props.showAllPerformances)
+                    props.setShowAllPerformances(!props.showAllPerformances)
                     setShowModal(!showModal)
                 }
             }}

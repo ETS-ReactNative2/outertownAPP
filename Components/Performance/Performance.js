@@ -21,7 +21,7 @@ export default function Performance(props) {
             setSecretBand(bandInfo?.Secret == true);
             setPerformanceReady(true);
         })()
-    }, [])
+    })
     const [performanceReady, setPerformanceReady] = useState(false);
     const [pressOpacity, setPressOpacity] = useState(1);
     const [secretBand, setSecretBand] = useState(false)

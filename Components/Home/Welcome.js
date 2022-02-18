@@ -15,11 +15,6 @@ import { baseStyles } from '../../Styles/baseStyles';
  * @returns {Component}
  */
 export default function Welcome(props, navigation) {
-
-    if (!props.location) {
-        return null;
-    }
-
     useEffect(() => {
         (async() => {
             if (props.location)
@@ -32,6 +27,11 @@ export default function Welcome(props, navigation) {
     }, [props.location])
 
     const [nextLocationPerformance, setNextLocationPerformance] = useState(false)
+
+    if (!props.location) {
+        return null;
+    }
+
     let nextPerformance = (
         <Text style = {baseStyles.stdText}>
             No Performances Scheduled for {props.location.name}

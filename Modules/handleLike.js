@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
+import { Platform } from 'react-native';
 
 /**
  * @function handleLike : 
@@ -78,7 +79,6 @@ export default async function handleLike(bandInfo, bandLiked, setBandLiked, band
           // edge case - shouldn't be possible - do nothing
           setButtonBusy(false);
           return;
-          break;
           case false:
             bandsLiked.push(bandInfo.Name);
             break;

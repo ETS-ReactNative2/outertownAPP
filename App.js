@@ -51,17 +51,19 @@ const App = () => {
     InriaSerif,
     KaiseiTokumin
   });
-  useEffect(async() => {
-    const screenLock = ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-    const prepareResult = prepare();
-    const promiseResults = await Promise.all([screenLock, prepareResult]);
-    if (promiseResults[1] === null) {
-      setAppIsReady(true);
-    } else {
-      setDataAvailable(true);
-      setAppIsReady(true);
-      await SplashScreen.hideAsync();
-    }
+  useEffect(() => {
+    (async() => {
+      const screenLock = ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      const prepareResult = prepare();
+      const promiseResults = await Promise.all([screenLock, prepareResult]);
+      if (promiseResults[1] === null) {
+        setAppIsReady(true);
+      } else {
+        setDataAvailable(true);
+        setAppIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    })();
   }, []);
   
   if (!appIsReady || !fontsLoaded) {

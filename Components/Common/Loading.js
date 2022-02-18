@@ -15,9 +15,6 @@ export default function Loading() {
     const containerFade = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        drive();
-    }, [])
-    const drive = () => {
         Animated.parallel([
             Animated.timing(containerFade, {
                 toValue: 1,
@@ -35,7 +32,8 @@ export default function Loading() {
                 useNativeDriver: false,
             }),
         ]).start();
-    }
+    })
+
     return (
         <SafeAreaView>
             <Animated.View
