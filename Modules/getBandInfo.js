@@ -9,7 +9,6 @@ import { getPerformances } from './getPerformances';
  */
 export async function getBandInfo(band) {
     try {
-
         // get local data for venues and performances
         const localBandsData = await AsyncStorage.getItem('@bandsData');
         // get data for just this band
@@ -42,7 +41,6 @@ export async function getBandPerformance(band) {
  */
 export async function getLiked(band) {
     try {
-
         let likes = await AsyncStorage.getItem('@likes');
         if (likes === null) return false;
         likes = JSON.parse(likes);
