@@ -28,10 +28,17 @@ const bandsInfo = [
     },
 ]
 
-beforeAll(async () => {
+beforeEach(async () => {
     await AsyncStorage.clear();
     await AsyncStorage.setItem('@bandsData', JSON.stringify(bandsInfo));
 });
+
+describe("sample tests", () => {
+    it("5*5 should be 25", () => {
+        expect(5*5).toBe(25);
+    });
+})
+
 
 describe("getBandInfo", () => {
     test('should return false if no band name argument', async () => {
