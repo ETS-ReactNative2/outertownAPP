@@ -4,11 +4,10 @@ import parsePerformances from "./parsePerformances";
 /**
  * Get performance data from local storage
  * @param {String} filterVenue - optional name of venue to show performances for
- * @returns {Array}
+ * @returns {Promise} - resolves to Array of performances
  */
 export async function getPerformances(filterVenue = false) {
     try {
-
         let localPerformancesData = await AsyncStorage.getItem('@performancesData');
         localPerformancesData =  parsePerformances(localPerformancesData, filterVenue);
         // only show performances that haven't yet finished
