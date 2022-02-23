@@ -73,7 +73,7 @@ export default function Performance(props) {
             </View>
             <View style={giglistStyles.time}>
                 <Text style={giglistStyles.textSmall}>
-                    {performance.StartSting} - {performance.EndString}
+                    {performance.StartString} - {performance.EndString}
                 </Text>
             </View>
         </View>

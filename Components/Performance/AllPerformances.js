@@ -73,7 +73,7 @@ export default function AllPerformances(props) {
             performance={{
                 Band: 'No bands fit the search',
                 Stage: '',
-                StartSting: '',
+                StartString: '',
                 EndString: '',
             }}
             toggleModal={null}
