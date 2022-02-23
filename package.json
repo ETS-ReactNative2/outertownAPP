@@ -49,7 +49,10 @@
     "@babel/core": "^7.12.9"
   },
   "jest": {
-    "preset": "jest-expo/universal"
+    "projects": [
+      { "preset": "jest-expo/ios" },
+      { "preset": "jest-expo/android"}
+    ]
   },
   "private": true
 }

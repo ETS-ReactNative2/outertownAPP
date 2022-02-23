@@ -70,7 +70,6 @@ describe('parsePerformances', () => {
     })
     test('should return object with formatted time and start and end strings', () => {
         const result = parsePerformances(performancesJson, 'Venue 2');
-        console.log(result[0])
         expect(result[0]).toMatchObject(venue2ExpectedPerformance);
 
     })
