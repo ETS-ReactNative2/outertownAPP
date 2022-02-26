@@ -133,7 +133,7 @@ export default function BandInfo({route, navigation}) {
     <View style={[baseStyles.callToActionContainer, {backgroundColor: 'rgba(255, 255, 255, 0.8)'}]}>
         <TouchableOpacity
             accessible={true}
-            accessibilityLabel={`Click to ${likeButtonText} ${bandInfo.Name}. ${likeInfoText}`}
+            accessibilityLabel={`${likeButtonText} ${bandInfo.Name}. ${likeInfoText}`}
             style={[baseStyles.callToActionButton, likeButtonStyle, buttonBusyStyle]}
             onPress={() => {
                 setButtonBusy(true);

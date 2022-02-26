@@ -59,7 +59,7 @@ export const venueStyles = StyleSheet.create({
     width:'100%',
     padding: '2%',
     alignItems: 'center',
-    backgroundColor: 'rgba(244, 244, 236, 0.5)',
+    backgroundColor: 'rgba(244, 244, 236, 0.6)',
   },
   venueAddressText: {
     fontFamily: 'KoHo',

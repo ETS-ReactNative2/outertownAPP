@@ -55,11 +55,14 @@ export const baseStyles = StyleSheet.create({
     },
     callToActionButton: {
       flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: '#e4bf49',
       paddingTop: '3%',
       paddingBottom: '3%',
       paddingLeft: '5%',
-      paddingRight: '5%'
+      paddingRight: '5%',
+      minHeight: 48,
     },
     callToActionText: {
       fontFamily: 'InterBold',
