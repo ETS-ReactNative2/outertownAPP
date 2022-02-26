@@ -4,10 +4,10 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 // import components
 import ScreenWrapper from './Common/ScreenWrapper';
 import Loading from './Common/Loading';
-import LinkWrapper from './Common/LinkWrapper';
 import Performance from './Performance/Performance';
+import bandSocials from './Common/BandSocials';
 // import modules
-import { bandImagePath, bandLogoPath, twitterPath } from '../Modules/paths';
+import { bandImagePath, bandLogoPath, twitterPath, spotifyPath, instagramPath } from '../Modules/paths';
 import { getBandInfo, getBandPerformance, getLiked } from '../Modules/getBandInfo';
 import handleLike from '../Modules/handleLike';
 // import styles
@@ -51,7 +51,7 @@ export default function BandInfo({route, navigation}) {
         )
     }
 
-    let bandImage, bandLogo, bandBio, bandSpotify, bandTwitter, bandWeb, bandLocation;
+    let bandImage, bandLogo, bandBio, bandLocation;
     // build screen parts where information available
     if (bandInfo.BandImg) {
         bandImage = <Image
@@ -74,37 +74,7 @@ export default function BandInfo({route, navigation}) {
         </View>
     }
 
-    if (bandInfo.Twitter) {
-        const twitComp = <View
-            accessible={true}
-            accessibilityLabel={`Link to Twitter account of ${bandInfo.Name}`}
-        >
-            <Image
-                resizeMode='cover'
-                source={require('../assets/graphics/socials/tw.png')}
-            />
-        </View>;
-        bandTwitter = <LinkWrapper
-            url={twitterPath+bandInfo.Twitter}
-            linkComponent={twitComp}
-        />
-    }
-    
-    if (bandInfo.Spotify) {
-        const spotComp = <View
-            accessible={true}
-            accessibilityLabel={`Link to Spotify account of ${bandInfo.Name}`}
-        >
-            <Image
-                resizeMode='cover'
-                source={require('../assets/graphics/socials/sp.png')}
-            />
-        </View>;
-        bandTwitter = <LinkWrapper
-            url={bandInfo.Spotify}
-            linkComponent={spotComp}
-        />
-    }
+    const socials = bandSocials(bandInfo);
 
     if (bandInfo.Location) {
         bandLocation = <View
@@ -204,11 +174,7 @@ export default function BandInfo({route, navigation}) {
                 {bandBio}
                 {like}
                 {performances}
-                <View name='socials' style={bandStyles.socials}>
-                    {bandTwitter}
-                    {bandSpotify}
-                    {bandWeb}
-                </View>
+                {socials}
                 {/* spacer - padding on content container not working? */}
                 <View style={{height: 80}}></View>
             </View>

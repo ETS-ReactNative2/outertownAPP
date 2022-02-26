@@ -39,10 +39,20 @@ export const bandStyles = StyleSheet.create({
     },
     socials: {
         padding: '2%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    },
+    socialIcon: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    },
+        borderColor: 'white',
+        borderWidth: 1,
+    },  
     unlike: {
         backgroundColor: '#a0a0a0',
         opacity: 1,
