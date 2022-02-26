@@ -36,7 +36,11 @@
       "infoPlist": {
         "NSLocationUsageDescription": "This app uses your location to welcome you to the festival if you are within 30 metres of any of the participating venues on 10th April 2022, and inform you of the next performance taking place in the venue closest to you.",
         "NSLocationAlwaysUsageDescription": "This app uses your location to welcome you to the festival if you are within 30 metres of any of the participating venues on 10th April 2022, and inform you of the next performance taking place in the venue closest to you.",
-        "NSLocationWhenInUseUsageDescription": "This app uses your location to welcome you to the festival if you are within 30 metres of any of the participating venues on 10th April 2022, and inform you of the next performance taking place in the venue closest to you."
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to welcome you to the festival if you are within 30 metres of any of the participating venues on 10th April 2022, and inform you of the next performance taking place in the venue closest to you.",
+        "LSApplicationQueriesSchemes": [
+          "comgooglemaps",
+          "uber"
+        ]
       }
     },
     "android": {

@@ -7,6 +7,7 @@ import ScreenWrapper from '../Common/ScreenWrapper';
 import Performance from '../Performance/Performance';
 import Loading from '../Common/Loading';
 import VenueTitle from './VenueTitle';
+import VenueAddress from './VenueAddress';
 // import modules
 import { getPerformances } from '../../Modules/getPerformances';
 import { venueImagePath, venueLogoPath } from '../../Modules/paths';
@@ -53,6 +54,8 @@ export default function VenueInfo({ route, navigation }) {
             )
         }
     
+    const venueAddress = <VenueAddress venueInfo={venueInfo} />
+    
     return (
         <ScreenWrapper
             innerPage={true}
@@ -63,13 +66,7 @@ export default function VenueInfo({ route, navigation }) {
                     <VenueTitle
                         venue={venueInfo}
                     />
-                    <Text
-                        accessible={true}
-                        accessibilityLabel={`Address of venue ${venueInfo.Name}`}
-                        style={venueStyles.venueAddressText}
-                    >
-                        {venueInfo.Address}
-                    </Text>
+                    { venueAddress }
                     <Image
                         accessible={true}
                         accessibilityLabel={`Image of venue ${venueInfo.Name}`}

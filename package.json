@@ -38,6 +38,7 @@
     "react-native": "0.64.3",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
+    "react-native-map-link": "^2.8.3",
     "react-native-modal": "^12.1.0",
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
@@ -50,8 +51,12 @@
   },
   "jest": {
     "projects": [
-      { "preset": "jest-expo/ios" },
-      { "preset": "jest-expo/android"}
+      {
+        "preset": "jest-expo/ios"
+      },
+      {
+        "preset": "jest-expo/android"
+      }
     ]
   },
   "private": true

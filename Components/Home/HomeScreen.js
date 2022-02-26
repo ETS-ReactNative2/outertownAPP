@@ -51,13 +51,11 @@ export default function HomeScreen({route, navigation}) {
                 await Image.prefetch(image);
             }
             setVenuesInfo(localVenuesData);
+            getLocation(venuesInfo)
+            .then(res => setLocation(res))
         })();
     }, []);
 
-    useEffect(() => {
-        getLocation()
-        .then(res => setLocation(res))
-    }, [])
 
     // get local datetime and festival datetimes
     const today = Date.now();
