@@ -75,11 +75,6 @@ export default function VenueInfo({ route, navigation }) {
                         resizeMode='contain'
                     />
                 </View>
-                {/* <View style={venueStyles.venueDiv}>
-                    <Text style={venueStyles.venueInfoText}>
-                        {venueInfo.Info}
-                    </Text>
-                </View> */}
                 <View style={{flex: 2, padding: '3%'}}>
 
                 {performances.map((performance)=><Performance
@@ -87,6 +82,11 @@ export default function VenueInfo({ route, navigation }) {
                     performance={performance}
                     key={performance.Id}
                 />)}
+                </View>
+                <View style={venueStyles.venueDiv}>
+                    <Text style={venueStyles.venueInfoText}>
+                        {venueInfo.Info}
+                    </Text>
                 </View>
             </View>
         </ScreenWrapper>
