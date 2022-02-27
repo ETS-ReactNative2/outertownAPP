@@ -17,9 +17,9 @@ export default function VenueAddress(props) {
                 showLocation({
                     latitude: venueInfo.Latitude,
                     longitude: venueInfo.Longitude,
-                    title: venueInfo.Name,
+                    title: `${venueInfo.Name}, ${venueInfo.Address}`,
                     alwaysIncludeGoogle: true,
-                    googleForceLatLon: true,
+                    googleForceLatLon: false,
                     dialogMessage: `Choose an app to show the location of ${venueInfo.Name}`
                 })
             }}
@@ -31,17 +31,6 @@ export default function VenueAddress(props) {
             >
                 {venueInfo.Address}
             </Text>
-
         </Pressable>
     );
-    // return <Pressable
-    // >
-    //     <Text
-    //         accessible={true}
-    //         accessibilityLabel={`Address of venue ${venueInfo.Name}`}
-    //         style={venueStyles.venueAddressText}
-    //     >
-    //         {venueInfo.Address}
-    //     </Text>;
-    // </Pressable>
 }
