@@ -31,12 +31,6 @@ export default function HomeScreen({route, navigation}) {
 
     useEffect(() => {
         (async() => {
-            // if (route.params.location) {
-            //     const locationPerformances = await getPerformances(route.params.location.name);
-            //     if (locationPerformances[0])
-            //         setNextLocationPerformance(locationPerformances[0]);
-            //     setLocation(route.params.location);
-            // }
             // get venue data from local storage
             let localVenuesData = await AsyncStorage.getItem('@venuesData');
             localVenuesData = JSON.parse(localVenuesData)
@@ -54,7 +48,7 @@ export default function HomeScreen({route, navigation}) {
             getLocation(venuesInfo)
             .then(res => setLocation(res))
         })();
-    }, []);
+    });
 
 
     // get local datetime and festival datetimes

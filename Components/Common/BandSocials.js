@@ -1,3 +1,4 @@
+import React from 'react';
 import {View, Image} from 'react-native';
 import LinkWrapper from './LinkWrapper';
 import { bandStyles } from '../../Styles/bandStyles';
