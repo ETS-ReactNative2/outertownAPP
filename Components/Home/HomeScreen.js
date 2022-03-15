@@ -42,13 +42,13 @@ export default function HomeScreen({route, navigation}) {
                 images.push(`${venueLogoPath}${venue.VenueLogo}`);
             }
             for (let image of images) {
-                await Image.prefetch(image);
+                // await Image.prefetch(image);
             }
             setVenuesInfo(localVenuesData);
             getLocation(venuesInfo)
             .then(res => setLocation(res))
         })();
-    });
+    }, []);
 
 
     // get local datetime and festival datetimes
