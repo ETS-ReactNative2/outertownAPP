@@ -27,7 +27,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.nigelpowell.outertownapp",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.3",
       "supportsTablet": false,
       "requireFullScreen": true,
       "backgroundColor": "#f4f4ec",
@@ -45,7 +45,7 @@
     },
     "android": {
       "package": "com.nigelpowell.outertownapp",
-      "versionCode": 2,
+      "versionCode": 3,
       "icon": "./assets/graphics/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/graphics/iconAdaptiveForeground.png",
