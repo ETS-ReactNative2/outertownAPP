@@ -3,7 +3,7 @@
     "name": "Outer Town Fest",
     "description": "Everything you need to know about Bristol's Outer Town Fest 2022",
     "slug": "outertownAPP",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "privacy": "public",
     "backgroundColor": "#f4f4ec",
