@@ -17,11 +17,21 @@ import { giglistStyles } from '../../Styles/giglistStyles';
 export default function Performance(props) {
     useEffect(() => {
         (async() => {
-            const bandInfo = await getBandInfo(props.performance.Band);
-            setSecretBand(bandInfo?.Secret == true);
-            setPerformanceReady(true);
+            let mounted = true;
+            let bandInfo = false;
+            setSecretBand(false);
+            setPerformanceReady(false);
+            if (mounted) {
+                bandInfo = await getBandInfo(props.performance.Band);
+                setSecretBand(bandInfo?.Secret == true);
+                setPerformanceReady(true);
+            } else {
+                setPerformanceReady(false);
+                setSecretBand(false);
+            }
+            return () => mounted=false;
         })()
-    })
+    }, [props.performance.Band])
     const [performanceReady, setPerformanceReady] = useState(false);
     const [pressOpacity, setPressOpacity] = useState(1);
     const [secretBand, setSecretBand] = useState(false)

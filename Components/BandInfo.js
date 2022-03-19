@@ -7,7 +7,7 @@ import Loading from './Common/Loading';
 import Performance from './Performance/Performance';
 import bandSocials from './Common/BandSocials';
 // import modules
-import { bandImagePath, bandLogoPath, twitterPath, spotifyPath, instagramPath } from '../Modules/paths';
+import { bandImagePath, bandLogoPath } from '../Modules/paths';
 import { getBandInfo, getBandPerformance, getLiked } from '../Modules/getBandInfo';
 import handleLike from '../Modules/handleLike';
 // import styles
@@ -37,11 +37,21 @@ export default function BandInfo({route, navigation}) {
     
     useEffect(() => {
         (async() => {
-            const bandInfo = await getBandInfo(route.params.band);
-            await processBand(bandInfo);
-            setBandInfo(bandInfo);
-            setBandPerformance(await getBandPerformance(route.params.band));
-            setBandLiked(await getLiked(route.params.band));
+            let mounted = true;
+            setBandInfo(false);
+            setBandPerformance(false);
+            if (mounted) {
+                const bandInfo = await getBandInfo(route.params.band);
+                await processBand(bandInfo);
+                setBandInfo(bandInfo);
+                setBandPerformance(await getBandPerformance(route.params.band));
+                setBandLiked(await getLiked(route.params.band));
+            } else {
+                setBandInfo(false);
+                setBandPerformance(false);
+                setBandLiked(false);
+            }
+            return () => mounted=false;
         })();
     }, [route.params.band]);
 
@@ -60,12 +70,19 @@ export default function BandInfo({route, navigation}) {
         resizeMode='contain'
     />
     }
-    if (bandInfo.bandLogo) {
-        bandLogo = <Image
-        style={bandStyles.bandLogo}
-        source={{uri: bandLogoPath+bandInfo.logo}}
-        resizeMode='contain'
-    />
+    if (bandInfo.BandLogo) {
+        bandLogo = <View style={bandStyles.logoContainer}>
+        <View style={bandStyles.bandLogo}>
+                <Image
+                style={{width: '100%', height: '100%'}}
+                source={{uri: bandLogoPath+bandInfo.BandLogo}}
+                resizeMode='contain'
+            />
+        </View>
+        <Text style={baseStyles.stdTitle}>
+            {bandInfo.Name}
+        </Text>
+    </View>
     } else {
         bandLogo = <View style={bandStyles.logoContainer}>
             <Text style={baseStyles.stdTitle}>

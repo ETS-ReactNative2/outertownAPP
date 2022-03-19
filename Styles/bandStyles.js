@@ -60,5 +60,9 @@ export const bandStyles = StyleSheet.create({
     buttonBusyStyle: {
         backgroundColor: '#b01010',
         opacity: 0.5,
-    }
+    },
+    bandLogo: {
+        width: 100,
+        height: 100,
+    },
 });

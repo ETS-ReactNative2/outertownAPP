@@ -1,7 +1,7 @@
 // load dependencies
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SearchBar } from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -25,8 +25,6 @@ export default function AllPerformances(props) {
     const [performances, setPerformances] = useState(false);
     const [allPerformances, setAllPerformances] = useState(false);
     const [search, setSearch] = useState('');
-    const [scrollEnabled, setScrollEnabled] = useState(true);
-    const [deactivatePressables, setDeactivatePressables] = useState(false);
     const navigation = useNavigation();
 
     function updateSearch(search) {
@@ -37,16 +35,7 @@ export default function AllPerformances(props) {
         setSearch(search);
     }
 
-    function swipeCancelled(e) {
-        setScrollEnabled(true);
-        setDeactivatePressables(false);
-        props.setShowAllPerformances(true);
-        setShowModal(true);
-    }
-
     const toggleModal = () => {
-        setScrollEnabled(true);
-        setDeactivatePressables(false);
         props.setShowAllPerformances(false);
         setShowModal(false);
     };
@@ -85,7 +74,6 @@ export default function AllPerformances(props) {
                 performance={performance}
                 toggleModal={toggleModal}
                 key={performance.Id}
-                deactivatePressables={deactivatePressables}
             />)
     }
     return (
@@ -93,14 +81,6 @@ export default function AllPerformances(props) {
             isVisible={showModal}
             animationIn={'slideInRight'}
             animationOut={'slideOutRight'}
-            swipeDirection='right'
-            onSwipeStart={()=>{
-                setScrollEnabled(false);
-                setDeactivatePressables(true);
-            }}
-            onSwipeCancel={swipeCancelled}
-            onSwipeComplete={toggleModal}
-            swipeThreshold={155}
             backdropColor='#eeeeee'
             backdropOpacity={0.9}
             onBackButtonPress={toggleModal}
@@ -112,12 +92,17 @@ export default function AllPerformances(props) {
                     setShowModal(!showModal)
                 }
             }}
+            propagateSwipe={true}
         >
             <ScrollView
                 contentContainerStyle={{zIndex:0}}
-                scrollEnabled={scrollEnabled}
+                keyboardDismissMode='on-drag'
+                scrollEventThrottle={32}
             >
                 <SafeAreaView>
+                    <HideAllPerformances
+                        toggleModal={toggleModal}
+                    />
                     <SearchBar
                         placeholder='Search bands...'
                         onChangeText={updateSearch}
@@ -130,7 +115,6 @@ export default function AllPerformances(props) {
                     {performanceSchedule}
                     <HideAllPerformances
                         toggleModal={toggleModal}
-                        deactivatePressables={deactivatePressables}
                     />
                 </SafeAreaView>
             </ScrollView>
